@@ -62,6 +62,39 @@
                             <p id="money-available" class="font-bold">$0</p>
                         </div>
                     </section> 
+
+                    <!-- Filters -->
+                    <section id="filter-menu" class="flex justify-between items-center flex-wrap my-8 p-4 text-base bg-white drop-shadow-xl rounded-md">
+                        <h2 class="mb-5 text-3xl font-bold">Filtros</h2>
+                        <button id="btn-filter-toggle" class="btn p-4 text-2xl text-blue-500" aria-label="Activar/Desactivar menú de filtros">
+                            <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                            <i class="fa-regular fa-eye-slash hidden" aria-hidden="true"></i>
+                        </button>
+                        <form action="" class="filter-menu-options flex flex-col w-full">
+                            <label for="transaction-type" class="my-3 text-neutral-800 font-bold">Tipo</label>
+                            <select name="transaction-type" id="transaction-type" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Tipo de operaciones">
+                                <option value="all-transactions" aria-label="Mostrar todas">Todas</option>
+                                <option value="by-expenses" aria-label="Mostrar gastos">Gasto</option>
+                                <option value="by-earnings" aria-label="Mostrar ganancias">Ganancia</option>
+                            </select>
+                            <label for="transaction-type" class="my-3 text-neutral-800 font-bold">Categoría</label>
+                            <select name="category-menu" id="category-menu" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Listado de categorías">
+                                <option value="all-categories" aria-label="Mostrar todas">Todas</option>
+                                <!-- Here we will render categories from localstorage or the default ones -->
+                            </select>
+                            <label for="date-menu" class="my-3 text-neutral-800 font-bold">Desde</label>
+                            <input type="date" name="date-filter" id="date-filter" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Fecha de operación">
+                            <label for="order-menu" class="my-3 text-neutral-800 font-bold">Ordenar por</label>
+                            <select name="order-menu" id="order-menu" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Criterios de orden">
+                                <option value="most-recent-data" aria-label="Ordenar por operaciones más recientes">Más reciente</option>
+                                <option value="less-recent-data" aria-label="Ordenar por operaciones menos recientes">Menos reciente</option>
+                                <option value="highest-amount" aria-label="Ordenar operaciones según mayor monto">Mayor monto</option>
+                                <option value="lowest-amount" aria-label="Ordenar operaciones según menor monto">Menor monto</option>
+                                <option value="ascendant-alphabetical-order" aria-label="Ordenar operaciones por orden alfabético ascendente">A/Z</option>
+                                <option value="descendant-alphabetical-order" aria-label="Ordenar operaciones por orden alfabético descendente">Z/A</option>
+                            </select>
+                        </form>
+                    </section>
             </section>
 
         </article>
