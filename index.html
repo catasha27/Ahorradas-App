@@ -10,6 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>AhorrADAs</title>
 </head>
+
 <body class="w-full h-screen bg-slate-100">
     <!-- HEADER SECTION -->
     <header class="flex items-center w-full mb-16 bg-teal-400">
@@ -46,6 +47,8 @@
 
             <!-- BALANCE SECTION -->
             <section id="balance-section" class="flex flex-col w-full sm:mx-10 lg:flex-row lg:justify-center lg:mx-16 text-neutral-600 hidden">
+                <!-- Balance Sidebar  -->
+                <aside class="lg:flex-col lg:basis-1/3 lg:mr-8">    
                     <!-- Balance summary -->
                     <section id="balance-summary" class="p-4 text-xl bg-white drop-shadow-xl rounded-md">
                         <h2 class="mb-5 text-3xl font-bold">Balance</h2>
@@ -95,6 +98,17 @@
                             </select>
                         </form>
                     </section>
+                </aside>      
+
+                <!-- Transactions Section-->
+                <section id="transaction-section" class="flex flex-col lg:basis-2/3 items-center p-4 mb-10 text-xl bg-white drop-shadow-xl rounded-md">
+                    <header class="flex flex-col md:flex-row md:justify-between items-start w-full">
+                        <h2 class="mb-5 text-3xl font-bold">Operaciones</h2>
+                        <button id="btn-new-transaction" class="btn flex-start text-slate-50 text-base py-2 px-3 bg-teal-400 hover:bg-teal-500 rounded-md" aria-label="Generar nueva operación">+ Nueva operación
+                        </button>
+                    </header>
+
+                </section>
             </section>
 
         </article>
