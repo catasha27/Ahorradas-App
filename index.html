@@ -10,7 +10,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>AhorrADAs</title>
 </head>
-<body>
+<body class="w-full h-screen bg-slate-100">
+    <!-- HEADER SECTION -->
+    <header class="flex items-center w-full mb-16 bg-teal-400">
+        <nav class="flex justify-between items-center flex-wrap w-full lg:py-5 lg:px-7 text-slate-50">
+            <h1 class="py-2 px-3 text-3xl lg:text-4xl font-semibold"><i class="mr-2 fa-solid fa-wallet"></i> AhorrADAs</h1>
+            <button id="btn-menu" class="btn py-3 px-4 focus:bg-teal-500 lg:hidden"
+                aria-label="Activar/Desactivar menú de navegación">
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                <i class="fa-solid fa-x hidden" aria-hidden="true"></i>
+            </button>
+            <ul class="flex hidden lg:flex flex-col lg:flex-row w-full lg:w-auto p-2 bg-white lg:bg-inherit drop-shadow-xl lg:drop-shadow-none text-neutral-600 lg:text-inherit">
+                <li>
+                    <a id="balance-section" class="block w-full lg:w-auto p-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="#" aria-label="Mostrar pantalla principal con datos de balance">
+                    <i class="fa-solid fa-chart-line mr-1" aria-hidden="true"></i> Balance
+                    </a>
+                </li>
+                <li>    
+                    <a id="category-section" class="block w-full lg:w-auto p-2 lg:mx-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="#" aria-label="Tabla de categorías">
+                        <i class="fa-solid fa-tags mr-1" aria-hidden="true"></i> Categorías
+                    </a>
+                </li>
+                <li>
+                    <a id="reports-section" class="block w-full lg:w-auto p-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="#" aria-label="Sección Reportes">
+                        <i class="fa-solid fa-chart-pie mr-1" aria-hidden="true"></i> Reportes
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
     <script src="app.js"></script>
 </body>
 </html>
