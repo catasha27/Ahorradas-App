@@ -39,6 +39,34 @@
             </ul>
         </nav>
     </header>
+    
+    <!-- MAIN SECTION -->
+    <main class="flex flex-row justify-center w-full">
+        <article class="flex flex-col items-center w-full sm:w-11/12 xl:w-[1000px]">
+
+            <!-- BALANCE SECTION -->
+            <section id="balance-section" class="flex flex-col w-full sm:mx-10 lg:flex-row lg:justify-center lg:mx-16 text-neutral-600 hidden">
+                    <!-- Balance summary -->
+                    <section id="balance-summary" class="p-4 text-xl bg-white drop-shadow-xl rounded-md">
+                        <h2 class="mb-5 text-3xl font-bold">Balance</h2>
+                        <div class="flex flex-row justify-between py-3">
+                            <p>Ganancias</p>
+                            <p id="total-earnings" class="text-green-600 font-light">+$0</p>
+                        </div>
+                        <div class="flex flex-row justify-between py-3">
+                            <p>Gastos</p>
+                            <p id="total-expenses" class="text-red-600 font-light">-$0</p>
+                        </div>
+                        <div class="flex flex-row justify-between py-3">
+                            <p class="text-2xl">Total</p>
+                            <p id="money-available" class="font-bold">$0</p>
+                        </div>
+                    </section> 
+            </section>
+
+        </article>
+    </main>
+    <!-- LINK TO SCRIPT -->
     <script src="app.js"></script>
 </body>
 </html>
