@@ -108,8 +108,8 @@
                         </button>
                     </header>
 
-                    <!-- No results message box -->
-                    <section id="no-results-message" class="flex items-center flex-1 mb-6 ">
+                    <!-- No (transactions) results message box -->
+                    <section id="no-transactions-message" class="flex items-center flex-1 mb-6 ">
                         <figure class="flex flex-col">
                             <img src="./Assets/gastos_undraw_investment_data_re_sh9x.svg" alt="Imagen de mujer parada al lado de un gráfico de barras sosteniendo billetes" class="w-full max-w-sm my-12">
                             <figcaption class="text-center">
@@ -188,7 +188,7 @@
             </section>
 
             <!-- NEW CATEGORY FORM and LIST -->
-            <section id="new-category-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[800px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md">
+            <section id="new-category-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[800px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md hidden">
                 <h2 class="self-start mb-10 text-4xl font-bold">Categorías</h2>
                 <form action="" id="new-category-form" class="flex flex-col w-full">
                     <label for="category-name" class="my-3 text-neutral-800 font-bold">Nombre</label>
@@ -200,7 +200,7 @@
                 </form>
                 
                 <!-- Category table -->
-                <section id="category-table" class="flex flex-col w-full mt-4">
+                <section id="category-table" class="flex flex-col w-full mt-4 hidden">
                     <table class="w-auto table-auto">
                         <tbody id="category-data">
                             <!-- This code will be used in the script to render the table -->
@@ -234,6 +234,25 @@
                         </button>
                     </div>
                 </form>
+            </section>
+
+            <!-- flex flex-col w-full sm:mx-10 lg:flex-row lg:justify-center lg:mx-16 -->
+
+            <!-- REPORTS SECTION -->
+            <section id="new-transaction-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[800px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md ">
+                <h2 class="self-start mb-10 text-4xl font-bold">Reportes</h2>
+
+                <!-- No (reports) results message box -->
+                <section id="no-reports-message" class="flex items-center justify-center mb-16 ">
+                    <figure class="flex flex-col">
+                        <img src="./Assets/undraw_pie_chart_re_bgs8.svg" alt="Imagen de mujer parada al lado de un gráfico de torta" class="w-full max-w-sm my-12">
+                        <figcaption class="text-center">
+                            <p class="text-2xl font-semibold py-6">Operaciones insuficientes</p>
+                            <p class="text-base">Prueba agregando más operaciones</p>
+                        </figcaption>
+                    </figure>
+                </section>
+
             </section>
 
         </article>
