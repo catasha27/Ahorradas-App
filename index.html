@@ -46,7 +46,7 @@
         <article class="flex flex-col items-center w-full sm:w-11/12 xl:w-[1000px]">
 
             <!-- BALANCE SECTION -->
-            <section id="balance-section" class="flex flex-col w-full sm:mx-10 lg:flex-row lg:justify-center lg:mx-16 text-neutral-600 hidden">
+            <section id="balance-section" class="flex flex-col w-full sm:mx-10 lg:flex-row lg:justify-center lg:mx-16 text-neutral-600">
                 <!-- Balance Sidebar  -->
                 <aside class="lg:flex-col lg:basis-1/3 lg:mr-8">    
                     <!-- Balance summary -->
@@ -109,7 +109,7 @@
                     </header>
 
                     <!-- No (transactions) results message box -->
-                    <section id="no-transactions-message" class="flex items-center flex-1 mb-6 ">
+                    <section id="no-transactions-message" class="flex items-center flex-1 mb-6 hidden">
                         <figure class="flex flex-col">
                             <img src="./Assets/gastos_undraw_investment_data_re_sh9x.svg" alt="Imagen de mujer parada al lado de un gráfico de barras sosteniendo billetes" class="w-full max-w-sm my-12">
                             <figcaption class="text-center">
@@ -120,7 +120,7 @@
                     </section>
 
                     <!-- Transaction table -->
-                    <section id="transaction-table" class="flex flex-col w-full mt-4 hidden">
+                    <section id="transaction-table" class="flex flex-col w-full mt-4">
                         <table class="w-auto table-auto">
                             <thead class="hidden sm:block">
                                 <tr class="flex justify-between text-base text-left border-solid border-b-2">
@@ -133,11 +133,11 @@
                             </thead>
                             <tbody id="table-data">
                                 <!-- This code will be used in the script to render the table -->
-                                <tr class="flex justify-between items-center flex-wrap mb-4 md:mb-0 text-base">
+                                <tr class="flex justify-between items-center flex-wrap mb-4 md:mb-0 text-lg sm:text-base">
                                     <td class="basis-1/2 sm:basis-auto text-left font-medium py-4">Compras del mes</td>
-                                    <td class="basis-1/2 sm:basis-auto text-right md:text-left py-3"><span class="py-1 px-2.5 text-sm font-normal text-teal-600 bg-teal-100/30 rounded">Supermercado</span></td>
+                                    <td class="basis-1/2 sm:basis-auto text-right md:text-left py-3"><span class="py-1 px-2.5 text-base font-normal text-teal-600 bg-teal-100/30 rounded">Supermercado</span></td>
                                     <td class="text-right py-4 hidden md:block">12/05/2023</td>
-                                    <td class="text-right text-2xl md:text-base font-bold py-3">$45000</td>
+                                    <td class="text-right text-2xl sm:text-base font-bold py-3">$45000</td>
                                     <td class="flex justify-end gap-4 py-4">
                                         <button class="btn-edit text-slate-50" aria-label="Editar operación">
                                             <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
@@ -146,7 +146,8 @@
                                             <span class="py-2 px-[13px] bg-red-600/90 hover:bg-red-700/90 rounded"><i class="fa-solid fa-trash" aria-hidden="true"></i></span>
                                         </button>
                                     </td>
-                                    <!-- Here we will render the transactions from localstorage -->
+                                </tr>
+                                <!-- Here we will render the transactions from localstorage -->
                             </tbody>
                         </table>
                     </section>
@@ -236,14 +237,12 @@
                 </form>
             </section>
 
-            <!-- flex flex-col w-full sm:mx-10 lg:flex-row lg:justify-center lg:mx-16 -->
-
             <!-- REPORTS SECTION -->
-            <section id="new-transaction-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[800px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md ">
+            <section id="new-transaction-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[800px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md hidden">
                 <h2 class="self-start mb-10 text-4xl font-bold">Reportes</h2>
 
                 <!-- No (reports) results message box -->
-                <section id="no-reports-message" class="flex items-center justify-center mb-16 ">
+                <section id="no-reports-message" class="flex items-center justify-center mb-16 hidden">
                     <figure class="flex flex-col">
                         <img src="./Assets/undraw_pie_chart_re_bgs8.svg" alt="Imagen de mujer parada al lado de un gráfico de torta" class="w-full max-w-sm my-12">
                         <figcaption class="text-center">
@@ -252,7 +251,6 @@
                         </figcaption>
                     </figure>
                 </section>
-
             </section>
 
         </article>
