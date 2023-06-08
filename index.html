@@ -251,6 +251,97 @@
                         </figcaption>
                     </figure>
                 </section>
+
+                <!-- Report table -->
+                <section id="report-table" class="mt-4">
+
+                    <!-- Summary Reports table -->
+                    <article id="report-summary" class="flex flex-col w-full sm:p-6">
+                        <h2 class="mb-5 text-2xl font-medium">Resumen</h2>
+                        <table class="w-auto table-auto">
+                            <tbody id="table-data">
+                                <!-- This code will be used in the script to render the table -->
+                                <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+                                    <td class="flex-1 text-left font-medium py-3">Categoría con mayor ganancia</td>
+                                    <td class="flex-1 text-right py-3"><span class="py-1 px-2.5 text-xs font-normal text-teal-600 bg-teal-100/30 rounded">Supermercado</span></td>
+                                    <td class="flex-1 text-right font-medium py-3">$45000</td>
+                                </tr>
+                                <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+                                    <td class="flex-1 text-left font-medium py-3">Categoría con mayor gasto</td>
+                                    <td class="flex-1 text-right py-3"><span class="py-1 px-2.5 text-xs font-normal text-teal-600 bg-teal-100/30 rounded">Educación</span></td>
+                                    <td class="flex-1 text-right font-medium py-3">$45000</td>
+                                </tr>
+                                <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+                                    <td class="flex-1 text-left font-medium py-3">Categoría con mayor balance</td>
+                                    <td class="flex-1 text-right py-3"><span class="py-1 px-2.5 text-xs font-normal text-teal-600 bg-teal-100/30 rounded">Comida</span></td>
+                                    <td class="flex-1 text-right font-medium py-3">$45000</td>
+                                </tr>
+                                <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+                                    <td class="flex-1 text-left font-medium py-3">Mes con mayor ganancia</td>
+                                    <td class="flex-1 text-right py-3">12/05/2023</td>
+                                    <td class="flex-1 text-right font-medium py-3">$45000</td>
+                                </tr>
+                                <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+                                    <td class="flex-1 text-left font-medium py-3">Mes con mayor gasto</td>
+                                    <td class="flex-1 text-right py-3">12/05/2023</td>
+                                    <td class="flex-1 text-right font-medium py-3">$45000</td>
+                                </tr>
+                                <!-- Here we will render the reports from localstorage -->
+                            </tbody>
+                        </table>
+                    </article>
+    
+                    <!-- Totals by category table-->
+                    <article id="category-totals" class="flex flex-col w-full my-16 sm:p-6">
+                        <h2 class="mb-7 text-2xl font-medium">Totales por categorías</h2>
+                        <table class="w-auto table-auto">
+                            <thead>
+                                <tr class="flex justify-between text-sm sm:text-base text-left border-solid border-b-2">
+                                    <th class="flex-1 font-medium pr-2 pb-3">Categoría</th>
+                                    <th class="flex-1 text-right font-medium pb-3">Ganancias</th>
+                                    <th class="flex-1 text-right font-medium pb-3">Gastos</th>
+                                    <th class="flex-1 text-right font-medium pb-3">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-data">
+                                <!-- This code will be used in the script to render the table -->
+                                <tr class="flex justify-between text-sm sm:text-base">
+                                    <td class="flex-1 text-left font-medium py-3">Trabajo</td>
+                                    <td class="flex-1 text-right py-3">$45000</td>
+                                    <td class="flex-1 text-right py-3">$145000</td>
+                                    <td class="flex-1 text-right py-3">$45000</td>
+                                </tr>
+                                <!-- Here we will render the reports from localstorage -->
+                            </tbody>
+                        </table>
+                    </article>
+    
+                    <!-- Totals by month table -->
+                    <article id="monthly-totals" class="flex flex-col w-full mb-8 sm:p-6">
+                        <h2 class="mb-7 text-2xl font-medium">Totales por mes</h2>
+                        <table class="w-auto table-auto">
+                            <thead>
+                                <tr class="flex justify-between text-sm sm:text-base text-left border-solid border-b-2">
+                                    <th class="flex-1 font-medium pb-3">Mes</th>
+                                    <th class="flex-1 text-right font-medium pb-3">Ganancias</th>
+                                    <th class="flex-1 text-right font-medium pb-3">Gastos</th>
+                                    <th class="flex-1 text-right font-medium pb-3">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-data">
+                                <!-- This code will be used in the script to render the table -->
+                                <tr class="flex justify-between text-sm sm:text-base">
+                                    <td class="flex-1 text-left font-medium py-3">05/2023</td>
+                                    <td class="flex-1 text-right py-3">$45000</td>
+                                    <td class="flex-1 text-right py-3">$45000</td>
+                                    <td class="flex-1 text-right py-3">$45000</td>
+                                </tr>
+                                <!-- Here we will render the reports from localstorage -->
+                            </tbody>
+                        </table>
+                    </article>
+                </section>
+
             </section>
 
         </article>
