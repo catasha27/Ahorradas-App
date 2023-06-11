@@ -109,7 +109,7 @@
                     </header>
 
                     <!-- No (transactions) results message box -->
-                    <section id="no-transactions-message" class="flex items-center flex-1 mb-6 hidden">
+                    <section id="no-transactions-message" class="flex items-center flex-1 mb-6">
                         <figure class="flex flex-col">
                             <img src="./Assets/gastos_undraw_investment_data_re_sh9x.svg" alt="Imagen de mujer parada al lado de un gráfico de barras sosteniendo billetes" class="w-full max-w-sm my-12">
                             <figcaption class="text-center">
@@ -120,7 +120,7 @@
                     </section>
 
                     <!-- Transaction table -->
-                    <section id="transaction-table" class="flex flex-col w-full mt-4">
+                    <section id="transaction-table" class="flex flex-col w-full mt-4 hidden">
                         <table class="w-auto table-auto">
                             <thead class="hidden sm:block">
                                 <tr class="flex justify-between text-base text-left border-solid border-b-2">
@@ -139,10 +139,10 @@
                                     <td class="text-right py-4 hidden md:block">12/05/2023</td>
                                     <td class="text-right text-2xl sm:text-base font-bold py-3">$45000</td>
                                     <td class="flex justify-end gap-4 py-4">
-                                        <button class="btn-edit text-slate-50" aria-label="Editar operación">
+                                        <button class="btn-edit-transaction text-slate-50" aria-label="Editar operación">
                                             <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
                                         </button>
-                                        <button class="btn-delete text-slate-50" aria-label="Eliminar operación">
+                                        <button class="btn-delete-transaction text-slate-50" aria-label="Eliminar operación">
                                             <span class="py-2 px-[13px] bg-red-600/90 hover:bg-red-700/90 rounded"><i class="fa-solid fa-trash" aria-hidden="true"></i></span>
                                         </button>
                                     </td>
@@ -178,18 +178,18 @@
                     <label for="new-transaction-date" class="my-3 text-neutral-800 font-bold">Fecha</label>
                     <input type="date" name="transaction-date" id="transaction-date" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Fecha de operación">
                     <div class="flex flex-row justify-end gap-4 mt-14">
-                        <button id="btn-cancel" class="btn flex-start text-base py-2 px-4 bg-slate-300 hover:bg-slate-400 rounded-md" aria-label="Cancelar nueva operación">Cancelar
+                        <button id="btn-cancel-transaction" class="btn flex-start text-base py-2 px-4 bg-slate-300 hover:bg-slate-400 rounded-md" aria-label="Cancelar nueva operación">Cancelar
                         </button>
                         <button id="btn-create-transaction" class="btn flex-start text-slate-50 text-base py-2 px-4 bg-green-600/90 hover:bg-green-700/90 rounded-md" aria-label="Generar nueva operación">Agregar
                         </button>
-                        <button id="btn-edit-transaction" class="btn flex-start text-slate-50 text-base py-2 px-4 bg-green-600/90 hover:bg-green-700/90 rounded-md hidden" aria-label="Editar operación">Editar
+                        <button id="btn-edit-transaction" class="btn flex-start text-slate-50 text-base py-2 px-4 bg-green-600/90 hover:bg-green-700/90 rounded-md" aria-label="Editar operación">Editar
                         </button>
                     </div>
                 </form>
             </section>
 
             <!-- NEW and EDIT CATEGORY FORM and LIST SECTION -->
-            <section id="new-category-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md">
+            <section id="new-category-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md hidden">
                 <h2 id="new-category-title" class="self-start mb-10 text-4xl font-bold">Categorías</h2>
                 <h2 id="edit-category-title" class="self-start mb-10 text-4xl font-bold">Editar categoría</h2>
                 <form action="" id="new-category-form" class="flex flex-col w-full">
@@ -199,7 +199,7 @@
                         <button id="btn-add-category" class="btn flex-start text-slate-50 text-base py-2 px-4 bg-green-600/90 hover:bg-green-700/90 rounded-md hidden" aria-label="Agregar nueva categoría">Agregar
                         </button>
                         <div class="flex flex-row justify-end gap-4 mt-10">
-                            <button id="btn-cancel" class="btn flex-start text-base py-2 px-4 bg-slate-300 hover:bg-slate-400 rounded-md" aria-label="Cancelar nueva operación">Cancelar
+                            <button id="btn-cancel-category" class="btn flex-start text-base py-2 px-4 bg-slate-300 hover:bg-slate-400 rounded-md" aria-label="Cancelar nueva operación">Cancelar
                             </button>
                             <button id="btn-edit-category" class="btn flex-start text-slate-50 text-base py-2 px-4 bg-green-600/90 hover:bg-green-700/90 rounded-md" aria-label="Editar operación">Editar
                             </button>
@@ -235,7 +235,7 @@
                 <h2 class="self-start mb-10 text-4xl font-bold">Reportes</h2>
 
                 <!-- No (reports) results message box -->
-                <section id="no-reports-message" class="flex items-center justify-center mb-16 hidden">
+                <section id="no-reports-message" class="flex items-center justify-center mb-16">
                     <figure class="flex flex-col">
                         <img src="./Assets/undraw_pie_chart_re_bgs8.svg" alt="Imagen de mujer parada al lado de un gráfico de torta" class="w-full max-w-sm my-12">
                         <figcaption class="text-center">
@@ -246,7 +246,7 @@
                 </section>
 
                 <!-- Report table -->
-                <section id="report-table" class="mt-4">
+                <section id="report-table" class="mt-4 hidden">
 
                     <!-- Summary Reports table -->
                     <article id="report-summary" class="flex flex-col w-full sm:p-6">
