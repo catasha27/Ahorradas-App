@@ -23,17 +23,17 @@
             </button>
             <ul id="nav-menu-container" class="flex hidden lg:flex flex-col lg:flex-row w-full lg:w-auto p-2 bg-white lg:bg-inherit drop-shadow-xl lg:drop-shadow-none text-neutral-600 lg:text-inherit">
                 <li>
-                    <a id="balance-section" class="block w-full lg:w-auto p-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="index.html" aria-label="Mostrar pantalla principal con datos de balance">
+                    <a id="balance-link" class="block w-full lg:w-auto p-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="#" aria-label="Mostrar pantalla principal con datos de balance">
                     <i class="fa-solid fa-chart-line mr-1" aria-hidden="true"></i> Balance
                     </a>
                 </li>
                 <li>    
-                    <a id="category-section" class="block w-full lg:w-auto p-2 lg:mx-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="#" aria-label="Tabla de categorías">
+                    <a id="category-link" class="block w-full lg:w-auto p-2 lg:mx-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="#" aria-label="Tabla de categorías">
                         <i class="fa-solid fa-tags mr-1" aria-hidden="true"></i> Categorías
                     </a>
                 </li>
                 <li>
-                    <a id="reports-section" class="block w-full lg:w-auto p-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="#" aria-label="Sección Reportes">
+                    <a id="reports-link" class="block w-full lg:w-auto p-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="#" aria-label="Sección Reportes">
                         <i class="fa-solid fa-chart-pie mr-1" aria-hidden="true"></i> Reportes
                     </a>
                 </li>
@@ -155,7 +155,7 @@
             </section>
 
             <!-- NEW and EDIT TRANSACTION FORM SECTION -->
-            <section id="new-transaction-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md ">
+            <section id="transaction-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md hidden">
                 <h2 id="new-transaction-title" class="self-start mb-10 text-4xl font-bold">Nueva operación</h2>
                 <h2 id="edit-transaction-title" class="self-start mb-10 text-4xl font-bold">Editar operación</h2>
                 <form action="" id="new-transaction-form" class=" flex flex-col w-full">
@@ -189,7 +189,7 @@
             </section>
 
             <!-- NEW and EDIT CATEGORY FORM and LIST SECTION -->
-            <section id="new-category-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md hidden">
+            <section id="category-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md hidden">
                 <h2 id="new-category-title" class="self-start mb-10 text-4xl font-bold">Categorías</h2>
                 <h2 id="edit-category-title" class="self-start mb-10 text-4xl font-bold">Editar categoría</h2>
                 <form action="" id="new-category-form" class="flex flex-col w-full">
@@ -231,7 +231,7 @@
             </section>
             
             <!-- REPORTS SECTION -->
-            <section id="new-transaction-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md hidden">
+            <section id="reports-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md hidden">
                 <h2 class="self-start mb-10 text-4xl font-bold">Reportes</h2>
 
                 <!-- No (reports) results message box -->

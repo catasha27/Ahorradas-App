@@ -37,7 +37,22 @@ const initializeApp = () => {
         } else {
             clickOnBurger()
         }
-    }
-)}
+    })
+
+    $("#balance-link").addEventListener("click", () => {
+        showElements(["#balance-section"])
+        hideElements(["#transaction-form-section", "#category-form-section", "#reports-section"])
+    })
+    
+    $("#category-link").addEventListener("click", () => {
+        showElements(["#category-form-section"])
+        hideElements(["#balance-section", "#transaction-form-section", "#reports-section"])
+    })
+
+    $("#reports-link").addEventListener("click", () => {
+        showElements(["#reports-section"])
+        hideElements(["#balance-section", "#transaction-form-section", "#category-form-section"])
+    })
+}
 
 window.addEventListener("load", initializeApp)
