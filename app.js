@@ -138,6 +138,14 @@ const initializeApp = () => {
     $("#btn-create-transaction").addEventListener("click", (e) => {
         e.preventDefault()
         addTransaction()
+        showElements(["#new-success-message"])
+        setTimeout(() => hideElements(["#new-success-message"]), 2000)
+    })
+
+    $("#btn-cancel-transaction").addEventListener("click", (e) => {
+        e.preventDefault()
+        hideElements(["#transaction-form-section"])
+        showElements(["#balance-section"])
     })
 
 
