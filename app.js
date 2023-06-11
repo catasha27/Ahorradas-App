@@ -53,6 +53,24 @@ const initializeApp = () => {
         showElements(["#reports-section"])
         hideElements(["#balance-section", "#transaction-form-section", "#category-form-section"])
     })
+
+    const clickOnFilters = () => {
+        showElements([".filter-menu-container", "#hide-filters-menu"])
+        hideElements(["#show-filters-menu"])
+    }
+    
+    const clickOnCloseFilters = () => {
+        hideElements([".filter-menu-container", "#hide-filters-menu"])
+        showElements(["#show-filters-menu"])
+    }
+
+    $("#btn-filter-toggle").addEventListener("click", () => {
+        if ($("#show-filters-menu").classList.contains("hidden")) {
+            clickOnCloseFilters()
+        } else {
+            clickOnFilters()
+        }
+    })
 }
 
 window.addEventListener("load", initializeApp)
