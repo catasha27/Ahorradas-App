@@ -18,6 +18,48 @@ const showElements = (selectors) => {
 const getData = (key) => JSON.parse(localStorage.getItem(key))
 const setData = (key, array) => localStorage.setItem(key, JSON.stringify(array))
 
+// RENDERS
+
+const TRANSACTION_TYPE = {
+    EXPENSE: "expenses",
+    EARNING: "earning"
+}
+
+const placeholderTransactions = [
+    {
+        id: 1,
+        description: "compra pasajes",
+        type: TRANSACTION_TYPE.EXPENSE,
+        category: "vaciones",
+        amount: 4000,
+        date: "10/06/2023"
+    }
+]
+
+const renderTransactions = (transactions) => {
+    for (const { id, description, type, category, date, amount} of transactions) {
+        const isExpense = type === TRANSACTION_TYPE.EXPENSE
+        $("#table-data").innerHTML += `
+            <tr class="flex justify-between items-center flex-wrap mb-4 md:mb-0 text-lg sm:text-base">
+                <td class="basis-1/2 sm:basis-auto text-left font-medium py-4">${description}</td>
+                <td class="basis-1/2 sm:basis-auto text-right md:text-left py-3"><span class="py-1 px-2.5 text-base font-normal text-teal-600 bg-teal-100/30 rounded">${category}</span></td>
+                <td class="text-right py-4 hidden md:block">${date}</td>
+                <td class="text-right text-2xl sm:text-base font-bold py-3 ${isExpense ? "text-green-600" : "text-red-600"}">${isExpense ? "+" : "-"}${amount}</td>
+                <td class="flex justify-end gap-4 py-4">
+                    <button class="btn-edit-transaction text-slate-50" aria-label="Editar operación">
+                        <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
+                    </button>
+                    <button class="btn-delete-transaction text-slate-50" aria-label="Eliminar operación">
+                        <span class="py-2 px-[13px] bg-red-600/90 hover:bg-red-700/90 rounded"><i class="fa-solid fa-trash" aria-hidden="true"></i></span>
+                    </button>
+                </td>
+            </tr>
+        `
+    }
+}
+
+renderTransactions(placeholderTransactions)
+
 // EVENTS
 
 const initializeApp = () => {
