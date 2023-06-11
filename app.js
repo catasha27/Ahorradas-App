@@ -71,6 +71,11 @@ const initializeApp = () => {
             clickOnFilters()
         }
     })
+
+    $("#btn-add-transaction").addEventListener("click", () => {
+        showElements(["#transaction-form-section"])
+        hideElements(["#balance-section"])
+    })
 }
 
 window.addEventListener("load", initializeApp)
