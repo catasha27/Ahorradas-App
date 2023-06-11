@@ -15,8 +15,14 @@ const showElements = (selectors) => {
     }
 }
 
+const randomId = () => self.crypto.randomUUID()
+
 const getData = (key) => JSON.parse(localStorage.getItem(key))
 const setData = (key, array) => localStorage.setItem(key, JSON.stringify(array))
+
+if (!getData("transactions")) {
+    setData("transactions", [])
+}
 
 // RENDERS
 
@@ -24,17 +30,6 @@ const TRANSACTION_TYPE = {
     EXPENSE: "expenses",
     EARNING: "earning"
 }
-
-const placeholderTransactions = [
-    {
-        id: 1,
-        description: "compra pasajes",
-        type: TRANSACTION_TYPE.EXPENSE,
-        category: "vaciones",
-        amount: 4000,
-        date: "10/06/2023"
-    }
-]
 
 const renderTransactions = (transactions) => {
     for (const { id, description, type, category, date, amount} of transactions) {
@@ -58,7 +53,27 @@ const renderTransactions = (transactions) => {
     }
 }
 
-renderTransactions(placeholderTransactions)
+// renderTransactions(placeholderTransactions)
+
+// DATA STORAGE
+
+const saveTransactionData = () => {
+    return {
+        id: randomId(),
+        description: $("#transaction-description").value,
+        type: $("#transaction-type").value,
+        category: $("#category-option").value,
+        amount: $("#amount").valueAsNumber,
+        date: $("#transaction-date").value
+    }
+}
+
+const addTransaction = () => {
+    const currentTransactions = getData("transactions")
+    const newTransaction = saveTransactionData()
+    currentTransactions.push(newTransaction)
+    setData("transactions", currentTransactions)
+}
 
 // EVENTS
 
@@ -117,6 +132,11 @@ const initializeApp = () => {
     $("#btn-add-transaction").addEventListener("click", () => {
         showElements(["#transaction-form-section"])
         hideElements(["#balance-section"])
+    })
+
+    $("#btn-create-transaction").addEventListener("click", (e) => {
+        e.preventDefault()
+        addTransaction()
     })
 }
 

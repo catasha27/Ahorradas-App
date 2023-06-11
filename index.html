@@ -74,18 +74,18 @@
                             <i id="hide-filters-menu" class="fa-regular fa-eye-slash hidden" aria-hidden="true"></i>
                         </button>
                         <form action="" class="filter-menu-container flex flex-col w-full hidden">
-                            <label for="transaction-type" class="my-3 text-neutral-800 font-bold">Tipo</label>
-                            <select name="transaction-type" id="transaction-type" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Tipo de operaciones">
+                            <label for="transaction-option" class="my-3 text-neutral-800 font-bold">Tipo</label>
+                            <select name="transaction-option" id="transaction-option" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Tipo de operaciones">
                                 <option value="all-transactions" aria-label="Mostrar todas">Todas</option>
                                 <option value="by-expenses" aria-label="Mostrar gastos">Gasto</option>
                                 <option value="by-earnings" aria-label="Mostrar ganancias">Ganancia</option>
                             </select>
-                            <label for="transaction-type" class="my-3 text-neutral-800 font-bold">Categoría</label>
+                            <label for="category-menu" class="my-3 text-neutral-800 font-bold">Categoría</label>
                             <select name="category-menu" id="category-menu" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Listado de categorías">
                                 <option value="all-categories" aria-label="Mostrar todas">Todas</option>
                                 <!-- Here we will render categories from localstorage or the default ones -->
                             </select>
-                            <label for="date-menu" class="my-3 text-neutral-800 font-bold">Desde</label>
+                            <label for="date-filter" class="my-3 text-neutral-800 font-bold">Desde</label>
                             <input type="date" name="date-filter" id="date-filter" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Fecha de operación">
                             <label for="order-menu" class="my-3 text-neutral-800 font-bold">Ordenar por</label>
                             <select name="order-menu" id="order-menu" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Criterios de orden">
@@ -150,18 +150,17 @@
                     <label for="amount" class="my-3 text-neutral-800 font-bold">Monto</label>
                     <input type="number" name="amount" id="amount" placeholder="0" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Monto de nueva operación">
                     <p class="text-red-600 hidden amount-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Este campo es obligatorio</p>
-                    <label for="new-transaction-type" class="my-3 text-neutral-800 font-bold">Tipo</label> 
-                    <select name="new-transaction-type" id="new-transaction-type" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Tipo de operación">
-                        <option value="expense" aria-label="Gasto" selected>Gasto</option>
-                        <option value="earning" aria-label="
-                        Ganancia">Ganancia</option>
+                    <label for="transaction-type" class="my-3 text-neutral-800 font-bold">Tipo</label> 
+                    <select name="transaction-type" id="transaction-type" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Tipo de operación">
+                        <option value="expense" aria-label="Gasto">Gasto</option>
+                        <option value="earning" aria-label="Ganancia">Ganancia</option>
                     </select>
-                    <label for="new-transaction-type" class="my-3 text-neutral-800 font-bold">Categoría</label>
+                    <label for="category-option" class="my-3 text-neutral-800 font-bold">Categoría</label>
                     <select name="category-option" id="category-option" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Listado de categorías">
                         <!-- Here we will render categories from localstorage or the default ones -->
                     </select>
-                    <label for="new-transaction-date" class="my-3 text-neutral-800 font-bold">Fecha</label>
-                    <input type="date" name="transaction-date" id="transaction-date" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Fecha de operación">
+                    <label for="transaction-date" class="my-3 text-neutral-800 font-bold">Fecha</label>
+                    <input type="date" name="transaction-date" id="transaction-date" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria -label="Fecha de operación">
                     <div class="flex flex-row justify-end gap-4 mt-14">
                         <button id="btn-cancel-transaction" class="btn flex-start text-base py-2 px-4 bg-slate-300 hover:bg-slate-400 rounded-md" aria-label="Cancelar nueva operación">Cancelar
                         </button>
