@@ -18,12 +18,12 @@
             <h1 class="py-2 px-3 text-3xl lg:text-4xl font-semibold"><i class="mr-2 fa-solid fa-wallet"></i> AhorrADAs</h1>
             <button id="btn-menu" class="btn py-3 px-4 focus:bg-teal-500 lg:hidden"
                 aria-label="Activar/Desactivar menú de navegación">
-                <i class="fa-solid fa-bars" aria-hidden="true"></i>
-                <i class="fa-solid fa-x hidden" aria-hidden="true"></i>
+                <i id="show-burger-menu" class="fa-solid fa-bars" aria-hidden="true"></i>
+                <i id="close-burger-menu" class="fa-solid fa-x hidden" aria-hidden="true"></i>
             </button>
-            <ul class="flex hidden lg:flex flex-col lg:flex-row w-full lg:w-auto p-2 bg-white lg:bg-inherit drop-shadow-xl lg:drop-shadow-none text-neutral-600 lg:text-inherit">
+            <ul id="nav-menu-container" class="flex hidden lg:flex flex-col lg:flex-row w-full lg:w-auto p-2 bg-white lg:bg-inherit drop-shadow-xl lg:drop-shadow-none text-neutral-600 lg:text-inherit">
                 <li>
-                    <a id="balance-section" class="block w-full lg:w-auto p-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="#" aria-label="Mostrar pantalla principal con datos de balance">
+                    <a id="balance-section" class="block w-full lg:w-auto p-2 focus:text-blue-500 lg:focus:text-inherit focus:bg-gray-50 lg:focus:bg-teal-500 lg:focus:rounded" href="index.html" aria-label="Mostrar pantalla principal con datos de balance">
                     <i class="fa-solid fa-chart-line mr-1" aria-hidden="true"></i> Balance
                     </a>
                 </li>
@@ -46,7 +46,7 @@
         <article class="flex flex-col items-center w-full sm:w-11/12 xl:w-[1000px]">
 
             <!-- BALANCE SECTION -->
-            <section id="balance-section" class="flex flex-col w-full sm:mx-10 lg:flex-row lg:justify-center lg:mx-16 text-neutral-600 hidden">
+            <section id="balance-section" class="flex flex-col w-full sm:mx-10 lg:flex-row lg:justify-center lg:mx-16 text-neutral-600">
                 <!-- Balance Sidebar  -->
                 <aside class="lg:flex-col lg:basis-1/3 lg:mr-8">    
                     <!-- Balance summary -->
@@ -73,7 +73,7 @@
                             <i class="fa-regular fa-eye" aria-hidden="true"></i>
                             <i class="fa-regular fa-eye-slash hidden" aria-hidden="true"></i>
                         </button>
-                        <form action="" class="filter-menu-options flex flex-col w-full">
+                        <form action="" class="filter-menu-options flex flex-col w-full hidden">
                             <label for="transaction-type" class="my-3 text-neutral-800 font-bold">Tipo</label>
                             <select name="transaction-type" id="transaction-type" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Tipo de operaciones">
                                 <option value="all-transactions" aria-label="Mostrar todas">Todas</option>
@@ -104,7 +104,7 @@
                 <section id="transaction-section" class="flex flex-col lg:basis-2/3 items-center p-4 mb-10 text-xl bg-white drop-shadow-xl rounded-md">
                     <header class="flex flex-col md:flex-row md:justify-between items-start w-full">
                         <h2 class="mb-5 text-3xl font-bold">Operaciones</h2>
-                        <button id="btn-new-transaction" class="btn flex-start text-slate-50 text-base py-2 px-3 bg-teal-400 hover:bg-teal-500 rounded-md" aria-label="Generar nueva operación">+ Nueva operación
+                        <button id="btn-add-transaction" class="btn flex-start text-slate-50 text-base py-2 px-3 bg-teal-400 hover:bg-teal-500 rounded-md" aria-label="Generar nueva operación">+ Nueva operación
                         </button>
                     </header>
 
@@ -155,7 +155,7 @@
             </section>
 
             <!-- NEW and EDIT TRANSACTION FORM SECTION -->
-            <section id="new-transaction-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md hidden">
+            <section id="new-transaction-form-section" class="flex flex-col justify-center w-full p-4 mb-10 sm:mx-10 lg:w-[890px] text-base text-neutral-600 bg-white drop-shadow-xl rounded-md ">
                 <h2 id="new-transaction-title" class="self-start mb-10 text-4xl font-bold">Nueva operación</h2>
                 <h2 id="edit-transaction-title" class="self-start mb-10 text-4xl font-bold">Editar operación</h2>
                 <form action="" id="new-transaction-form" class=" flex flex-col w-full">
@@ -163,7 +163,7 @@
                     <input type="text"  name="transaction-description" id="transaction-description" placeholder="Descripción de operación" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Descripción de nueva operación">
                     <p class="text-red-600 hidden description-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Este campo es obligatorio</p>
                     <label for="amount" class="my-3 text-neutral-800 font-bold">Monto</label>
-                    <input type="text" name="amount" id="amount" placeholder="0" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Monto de nueva operación">
+                    <input type="number" name="amount" id="amount" placeholder="0" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Monto de nueva operación">
                     <p class="text-red-600 hidden amount-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Este campo es obligatorio</p>
                     <label for="new-transaction-type" class="my-3 text-neutral-800 font-bold">Tipo</label> 
                     <select name="new-transaction-type" id="new-transaction-type" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Tipo de operación">
