@@ -20,9 +20,7 @@ const randomId = () => self.crypto.randomUUID()
 const getData = (key) => JSON.parse(localStorage.getItem(key))
 const setData = (key, array) => localStorage.setItem(key, JSON.stringify(array))
 
-if (!getData("transactions")) {
-    setData("transactions", [])
-}
+const allTransactions = getData("transactions") || []
 
 // RENDERS
 
@@ -53,7 +51,7 @@ const renderTransactions = (transactions) => {
     }
 }
 
-// renderTransactions(placeholderTransactions)
+
 
 // DATA STORAGE
 
@@ -78,6 +76,9 @@ const addTransaction = () => {
 // EVENTS
 
 const initializeApp = () => {
+    setData("transactions", allTransactions)
+    renderTransactions(allTransactions)
+
     const clickOnBurger = () => {
         showElements(["#nav-menu-container", "#close-burger-menu"])
         hideElements(["#show-burger-menu"])
@@ -138,6 +139,8 @@ const initializeApp = () => {
         e.preventDefault()
         addTransaction()
     })
+
+
 }
 
 window.addEventListener("load", initializeApp)
