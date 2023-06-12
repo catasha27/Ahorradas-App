@@ -43,7 +43,7 @@ const renderTransactions = (transactions) => {
                     <td class="text-right py-4 hidden md:block">${date}</td>
                     <td class="text-right text-2xl sm:text-base font-bold py-3 ${isExpense ? "text-green-600" : "text-red-600"}">${isExpense ? "+" : "-"}${amount}</td>
                     <td class="flex justify-end gap-4 py-4">
-                        <button class="btn-edit-transaction text-slate-50" aria-label="Editar operación">
+                        <button class="btn-edit-transaction text-slate-50" aria-label="Editar operación" onclick="editTransactionForm('${id}')">
                             <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
                         </button>
                         <button class="btn-delete-transaction text-slate-50" aria-label="Eliminar operación" onclick="deleteTransaction('${id}')">
@@ -85,6 +85,29 @@ const deleteTransaction = (id) => {
     const currentTransactions = getData("transactions").filter(transaction => transaction.id !== id)
     setData("transactions", currentTransactions)
     renderTransactions(currentTransactions)
+}
+
+const editTransaction = () => {
+    const transactionId = $("#btn-edit-transaction").getAttribute("data-id")
+    const editedTransactions = getData("transactions").map(transaction => {
+        if (transaction.id === transactionId) {
+            return saveTransactionData()
+        }
+        return transaction
+    })
+    setData("transactions", editedTransactions)
+}
+
+const editTransactionForm = (id) => {
+    hideElements(["#balance-section", "#new-transaction-title", "#btn-create-transaction"])
+    showElements(["#transaction-form-section", "#edit-transaction-title", "#btn-edit-transaction"])
+    $("#btn-edit-transaction").setAttribute("data-id", id)
+    const transactionSelected = getData("transactions").find(transaction => transaction.id === id)
+    $("#transaction-description").value = transactionSelected.description
+    $("#transaction-type").value = transactionSelected.type
+    $("#category-option").value = transactionSelected.category
+    $("#amount").valueAsNumber = transactionSelected.amount
+    $("#transaction-date").value = transactionSelected.date
 }
 
 // EVENTS
@@ -145,8 +168,8 @@ const initializeApp = () => {
     })
 
     $("#btn-add-transaction").addEventListener("click", () => {
-        showElements(["#transaction-form-section"])
-        hideElements(["#balance-section", "#transaction-section"])
+        showElements(["#transaction-form-section", "#new-transaction-title", "#btn-create-transaction"])
+        hideElements(["#balance-section", "#transaction-section", "#edit-transaction-title", "#btn-edit-transaction"])
     })
 
     $("#btn-create-transaction").addEventListener("click", (e) => {
@@ -160,6 +183,14 @@ const initializeApp = () => {
         e.preventDefault()
         hideElements(["#transaction-form-section"])
         showElements(["#balance-section", "#transaction-section"])
+    })
+
+    $("#btn-edit-transaction").addEventListener("click", (e) => {
+        e.preventDefault()
+        editTransaction()
+        showElements(["#edit-success-message"])
+        setTimeout(() => hideElements(["#edit-success-message"]), 2000)
+        renderTransactions(getData("transactions"))
     })
 
 
