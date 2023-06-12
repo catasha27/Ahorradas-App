@@ -60,6 +60,29 @@ const renderTransactions = (transactions) => {
     }
 }
 
+const validateTransactionForm = () => {
+    const description = $("#transaction-description").value.trim()
+    const amount = $("#amount").valueAsNumber
+
+    if (description == "") {
+        showElements([".description-error"])
+        $("#transaction-description").classList.add("border-red-600")
+    } else {
+        hideElements([".description-error"])
+        $("#transaction-description").classList.remove("border-red-600")
+    }
+
+    if (amount == "") {
+        showElements([".amount-error"])
+        $("#amount").classList.add("border-red-600")
+    } else {
+        hideElements([".amount-error"])
+        $("#amount").classList.remove("border-red-600")
+    }
+
+    return description !== "" && amount !== ""
+}
+
 // DATA STORAGE
 
 const saveTransactionData = (transactionId) => {
@@ -188,9 +211,11 @@ const initializeApp = () => {
 
     $("#btn-create-transaction").addEventListener("click", (e) => {
         e.preventDefault()
-        addTransaction()
-        showElements(["#new-success-message"])
-        setTimeout(() => hideElements(["#new-success-message"]), 2000)
+        if (validateTransactionForm()) {
+            addTransaction()
+            showElements(["#new-success-message"])
+            setTimeout(() => hideElements(["#new-success-message"]), 2000)
+        }
     })
 
     $("#btn-cancel-transaction").addEventListener("click", (e) => {
@@ -201,10 +226,19 @@ const initializeApp = () => {
 
     $("#btn-edit-transaction").addEventListener("click", (e) => {
         e.preventDefault()
-        editTransaction()
-        showElements(["#edit-success-message"])
-        setTimeout(() => hideElements(["#edit-success-message"]), 2000)
-        renderTransactions(getData("transactions"))
+        if (validateTransactionForm()) {
+            editTransaction()
+            showElements(["#edit-success-message"])
+            setTimeout(() => hideElements(["#edit-success-message"]), 2000)
+            renderTransactions(getData("transactions"))
+        }
+    })
+
+    $("#amount").addEventListener("input", (e) => {
+        const value = e.target.valueAsNumber
+        if (isNaN(value)) {
+            $("#amount").value = ""
+        }
     })
 }
 
