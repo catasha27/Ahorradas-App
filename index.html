@@ -197,12 +197,13 @@
                 <h2 id="edit-category-title" class="self-start mb-10 text-4xl font-bold hidden">Editar categoría</h2>
                 <form action="" id="new-category-form" class="flex flex-col w-full">
                     <label for="category-name" class="my-3 text-neutral-800 font-bold">Nombre</label>
-                    <div class="flex flex-row gap-4">  <!-- cambia a flex-col en versión editar -->
+                    <div id="edit-function-container" class="flex flex-row gap-4">
                         <input type="text" name="category-name" id="category-name" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Nombre de nueva categoría">
                         <p class="text-red-600 hidden category-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Este campo es obligatorio</p>
                         <button id="btn-add-category" class="btn flex-start text-slate-50 text-base py-2 px-4 bg-green-600/90 hover:bg-green-700/90 rounded-md" aria-label="Agregar nueva categoría">Agregar
                         </button>
-                        <div class="flex flex-row justify-end gap-4 mt-10 hidden">
+                        <div id="edit-btns-container" class="flex flex-row justify-end items-center gap-4 mt-10 hidden">
+                            <p id="edit-category-success-message" class="italic text-sm font-medium text-green-600 hidden" aria-label="Confirmación de categoría editado">CATEGORÍA EDITADA</p>
                             <button id="btn-cancel-category" class="btn flex-start text-base py-2 px-4 bg-slate-300 hover:bg-slate-400 rounded-md" aria-label="Cancelar nueva operación">Cancelar
                             </button>
                             <button id="btn-edit-category" class="btn flex-start text-slate-50 text-base py-2 px-4 bg-green-600/90 hover:bg-green-700/90 rounded-md" aria-label="Editar operación">Editar

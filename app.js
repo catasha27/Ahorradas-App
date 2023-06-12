@@ -116,13 +116,13 @@ const renderCategoriesTable = (categories) => {
         if (a.categoryName > b.categoryName) return 1
         return 0
     })
-    for (const { categoryName } of categoriesSorted) {
+    for (const { categoryName, id } of categoriesSorted) {
         $("#category-data").innerHTML += `
         <tr class="flex justify-between items-center flex-wrap mb-3 text-base">
             <td class="basis-1/2 sm:basis-auto text-left py-3"><span class="py-1 px-2.5 text-sm font-normal text-teal-600 bg-teal-100/30 rounded">${categoryName}</span>
             </td>
             <td class="flex justify-end gap-4 py-4">
-                <button class="btn-edit-category text-slate-50" aria-label="Editar categoría">
+                <button class="btn-edit-category text-slate-50" aria-label="Editar categoría" onclick="editCategoryForm('${id}')">
                     <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
                 </button>
                 <button class="btn-delete-category text-slate-50" aria-label="Eliminar categoría">
@@ -202,20 +202,20 @@ const saveCategoryData = () => {
     }
 }
 
-const addCategory = () => {
-    const currentCategories = getData("categories")
-    const newCategory = saveCategoryData()
-    currentCategories.push(newCategory)
-    setData("categories", currentCategories)
-    renderCategoriesTable(currentCategories)
-}
-
 const addTransaction = () => {
     const currentTransactions = getData("transactions")
     const newTransaction = saveTransactionData()
     currentTransactions.push(newTransaction)
     setData("transactions", currentTransactions)
     renderTransactions(currentTransactions)
+}
+
+const addCategory = () => {
+    const currentCategories = getData("categories")
+    const newCategory = saveCategoryData()
+    currentCategories.push(newCategory)
+    setData("categories", currentCategories)
+    renderCategoriesTable(currentCategories)
 }
 
 const deleteTransaction = (id) => {
@@ -246,6 +246,17 @@ const editTransactionForm = (id) => {
     $("#amount").valueAsNumber = transactionSelected.amount
     $("#transaction-date").value = transactionSelected.date
 }
+
+const editCategoryForm = (id) => {
+    hideElements(["#new-category-title", "#btn-add-category", "#category-table"])
+    showElements(["#edit-category-title", "#edit-btns-container"])
+    $("#edit-function-container").classList.add("flex-col")
+    $("#edit-function-container").classList.remove("flex-row")
+    $("#btn-edit-category").setAttribute("data-id", id)
+    const categorySelected = getData("categories").find(category => category.id === id)
+    $("#category-name").value = categorySelected.categoryName
+}
+
 
 const openDeleteModal = (id, description) => {
     showElements(["#transaction-modal"])
