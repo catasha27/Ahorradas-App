@@ -30,6 +30,7 @@ const TRANSACTION_TYPE = {
 }
 
 const renderTransactions = (transactions) => {
+    cleanContainer("#table-data")
     for (const { id, description, type, category, date, amount} of transactions) {
         const isExpense = type === TRANSACTION_TYPE.EXPENSE
         $("#table-data").innerHTML += `
@@ -42,7 +43,7 @@ const renderTransactions = (transactions) => {
                     <button class="btn-edit-transaction text-slate-50" aria-label="Editar operación">
                         <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
                     </button>
-                    <button class="btn-delete-transaction text-slate-50" aria-label="Eliminar operación">
+                    <button class="btn-delete-transaction text-slate-50" aria-label="Eliminar operación" onclick="deleteTransaction('${id}')">
                         <span class="py-2 px-[13px] bg-red-600/90 hover:bg-red-700/90 rounded"><i class="fa-solid fa-trash" aria-hidden="true"></i></span>
                     </button>
                 </td>
@@ -50,8 +51,6 @@ const renderTransactions = (transactions) => {
         `
     }
 }
-
-
 
 // DATA STORAGE
 
@@ -71,6 +70,12 @@ const addTransaction = () => {
     const newTransaction = saveTransactionData()
     currentTransactions.push(newTransaction)
     setData("transactions", currentTransactions)
+}
+
+const deleteTransaction = (id) => {
+    const currentTransactions = getData("transactions").filter(transaction => transaction.id !== id)
+    setData("transactions", currentTransactions)
+    renderTransactions(currentTransactions)
 }
 
 // EVENTS
