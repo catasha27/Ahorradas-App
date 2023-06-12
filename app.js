@@ -63,11 +63,12 @@ const renderTransactions = (transactions) => {
         hideElements(["#no-transactions-message"])
         showElements(["#transaction-table"])
         for (const { id, description, type, category, date, amount} of transactions) {
+            const categorySelected = getData("categories").find(categ => categ.id === category)
             const isExpense = type === TRANSACTION_TYPE.EXPENSE
             $("#table-data").innerHTML += `
                 <tr class="flex justify-between items-center flex-wrap mb-4 md:mb-0 text-lg sm:text-base">
                     <td class="basis-1/2 sm:basis-auto text-left font-medium py-4">${description}</td>
-                    <td class="basis-1/2 sm:basis-auto text-right md:text-left py-3"><span class="py-1 px-2.5 text-base font-normal text-teal-600 bg-teal-100/30 rounded">${category}</span></td>
+                    <td class="basis-1/2 sm:basis-auto text-right md:text-left py-3"><span class="py-1 px-2.5 text-base font-normal text-teal-600 bg-teal-100/30 rounded">${categorySelected.categoryName}</span></td>
                     <td class="text-right py-4 hidden md:block">${date}</td>
                     <td class="text-right text-2xl sm:text-base font-bold py-3 ${isExpense ? "text-green-600" : "text-red-600"}">${isExpense ? "+" : "-"}${amount}</td>
                     <td class="flex justify-end gap-4 py-4">
