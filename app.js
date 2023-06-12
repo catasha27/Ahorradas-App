@@ -98,13 +98,13 @@ const renderCategoriesOptions = (categories) => {
         return 0
     })
     $("#category-menu").innerHTML += `
-        <option value="all-categories" aria-label="Mostrar todas">Todas</option>`
+        <option value="" aria-label="Mostrar todas">Todas</option>`
     for (const { categoryName, id } of categoriesSorted) { 
         $("#category-option").innerHTML += `
             <option value="${categoryName}" data-id="${id}" aria-label="${categoryName}">${categoryName}</option>
         `
         $("#category-menu").innerHTML += `
-        <option value="${categoryName}" data-id="${id}" aria-label="${categoryName}">${categoryName}</option>
+        <option value="${id}" aria-label="${categoryName}">${categoryName}</option>
         `        
     }
 }
