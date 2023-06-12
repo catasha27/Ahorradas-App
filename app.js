@@ -22,33 +22,33 @@ const setData = (key, array) => localStorage.setItem(key, JSON.stringify(array))
 
 const defaultCategories = [
     {
-        id: randomId,
+        id: randomId(),
         categoryName: "Comida"
     },
     {
-        id: randomId,
+        id: randomId(),
         categoryName: "Servicios"
     },
     {
-        id: randomId,
+        id: randomId(),
         categoryName: "Salidas"
     },
     {
-        id: randomId,
+        id: randomId(),
         categoryName: "Educación"
     },
     {
-        id: randomId,
+        id: randomId(),
         categoryName: "Transporte"
     },
     {
-        id: randomId,
+        id: randomId(),
         categoryName: "Trabajo"
     },
 ]
 
 const allTransactions = getData("transactions") || []
-const allCategories= getData("categories") || defaultCategories
+const allCategories = getData("categories") || defaultCategories
 
 // RENDERS
 
@@ -85,6 +85,15 @@ const renderTransactions = (transactions) => {
         hideElements(["#transaction-table"])
         showElements(["#no-transactions-message"])
 
+    }
+}
+
+const renderCategoriesOptions = (categories) => {
+    cleanContainer("#category-option")
+    for (const category of categories) { 
+        $("#category-option").innerHTML += `
+            <option value="${category.categoryName}" aria-label="${category.categoryName}">${category.categoryName}</option>
+        `        
     }
 }
 
@@ -181,6 +190,7 @@ const initializeApp = () => {
     setData("transactions", allTransactions)
     setData("categories", allCategories)
     renderTransactions(allTransactions)
+    renderCategoriesOptions(allCategories)
 
     const clickOnBurger = () => {
         showElements(["#nav-menu-container", "#close-burger-menu"])
