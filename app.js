@@ -62,9 +62,9 @@ const renderTransactions = (transactions) => {
 
 // DATA STORAGE
 
-const saveTransactionData = () => {
+const saveTransactionData = (transactionId) => {
     return {
-        id: randomId(),
+        id: transactionId ? transactionId : randomId(),
         description: $("#transaction-description").value,
         type: $("#transaction-type").value,
         category: $("#category-option").value,
@@ -91,7 +91,7 @@ const editTransaction = () => {
     const transactionId = $("#btn-edit-transaction").getAttribute("data-id")
     const editedTransactions = getData("transactions").map(transaction => {
         if (transaction.id === transactionId) {
-            return saveTransactionData()
+            return saveTransactionData(transaction.id)
         }
         return transaction
     })
@@ -192,8 +192,6 @@ const initializeApp = () => {
         setTimeout(() => hideElements(["#edit-success-message"]), 2000)
         renderTransactions(getData("transactions"))
     })
-
-
 }
 
 window.addEventListener("load", initializeApp)
