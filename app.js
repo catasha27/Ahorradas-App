@@ -151,6 +151,19 @@ const validateTransactionForm = () => {
     return description !== "" && amount !== ""
 }
 
+const validateCategoryForm = () => {
+    const category = $("#category-name").value.trim()
+
+    if (category == "") {
+        showElements([".category-error"])
+        $("#category-name").classList.add("border-red-600")
+    } else {
+        hideElements([".category-error"])
+        $("#category-name").classList.remove("border-red-600")
+    }
+    return category !== ""
+}
+
 // DATA STORAGE
 
 const saveTransactionData = (transactionId) => {
@@ -330,10 +343,12 @@ const initializeApp = () => {
 
     $("#btn-add-category").addEventListener("click", (e) => {
         e.preventDefault()
-        addCategory()
-        const currentCategories = getData("categories")
-        renderCategoriesOptions(currentCategories)
-        renderCategoriesTable(currentCategories)
+        if (validateCategoryForm()) {
+            addCategory()
+            const currentCategories = getData("categories")
+            renderCategoriesOptions(currentCategories)
+            renderCategoriesTable(currentCategories)
+        }
     })
 
 
