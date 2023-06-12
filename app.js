@@ -91,14 +91,20 @@ const renderTransactions = (transactions) => {
 
 const renderCategoriesOptions = (categories) => {
     cleanContainer("#category-option")
+    cleanContainer("#category-menu")
     const categoriesSorted = categories.toSorted((a, b) => {
         if (a.categoryName < b.categoryName) return -1
         if (a.categoryName > b.categoryName) return 1
         return 0
     })
-    for (const category of categoriesSorted) { 
+    $("#category-menu").innerHTML += `
+        <option value="all-categories" aria-label="Mostrar todas">Todas</option>`
+    for (const { categoryName, id } of categoriesSorted) { 
         $("#category-option").innerHTML += `
-            <option value="${category.categoryName}" data-id="${category.id}" aria-label="${category.categoryName}">${category.categoryName}</option>
+            <option value="${categoryName}" data-id="${id}" aria-label="${categoryName}">${categoryName}</option>
+        `
+        $("#category-menu").innerHTML += `
+        <option value="${categoryName}" data-id="${id}" aria-label="${categoryName}">${categoryName}</option>
         `        
     }
 }
