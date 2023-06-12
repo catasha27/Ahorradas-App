@@ -98,6 +98,31 @@ const renderCategoriesOptions = (categories) => {
     }
 }
 
+const renderCategoriesTable = (categories) => {
+    cleanContainer("#category-data")
+    const categoriesSorted = categories.toSorted((a, b) => {
+        if (a.categoryName < b.categoryName) return -1
+        if (a.categoryName > b.categoryName) return 1
+        return 0
+    })
+    for (const category of categoriesSorted) {
+        $("#category-data").innerHTML += `
+        <tr class="flex justify-between items-center flex-wrap mb-3 text-base">
+            <td class="basis-1/2 sm:basis-auto text-left py-3"><span class="py-1 px-2.5 text-sm font-normal text-teal-600 bg-teal-100/30 rounded">${category.categoryName}</span>
+            </td>
+            <td class="flex justify-end gap-4 py-4">
+                <button class="btn-edit-category text-slate-50" aria-label="Editar categoría">
+                    <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
+                </button>
+                <button class="btn-delete-category text-slate-50" aria-label="Eliminar categoría">
+                    <span class="py-2 px-[13px] bg-red-600/90 hover:bg-red-700/90 rounded"><i class="fa-solid fa-trash" aria-hidden="true"></i></span>
+                </button>
+            </td>
+        </tr>
+        `
+    }
+}
+
 const validateTransactionForm = () => {
     const description = $("#transaction-description").value.trim()
     const amount = $("#amount").valueAsNumber
@@ -193,6 +218,7 @@ const initializeApp = () => {
     setData("categories", allCategories)
     renderTransactions(allTransactions)
     renderCategoriesOptions(allCategories)
+    renderCategoriesTable(allCategories)
 
     const clickOnBurger = () => {
         showElements(["#nav-menu-container", "#close-burger-menu"])
@@ -281,6 +307,8 @@ const initializeApp = () => {
             $("#amount").value = ""
         }
     })
+
+
 }
 
 window.addEventListener("load", initializeApp)
