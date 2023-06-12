@@ -160,6 +160,21 @@ const saveTransactionData = (transactionId) => {
     }
 }
 
+const saveCategoryData = () => {
+    return {
+        id: randomId(),
+        categoryName: $("#category-name").value
+    }
+}
+
+const addCategory = () => {
+    const currentCategories = getData("categories")
+    const newCategory = saveCategoryData()
+    currentCategories.push(newCategory)
+    setData("categories", currentCategories)
+    renderCategoriesTable(currentCategories)
+}
+
 const addTransaction = () => {
     const currentTransactions = getData("transactions")
     const newTransaction = saveTransactionData()
@@ -306,6 +321,11 @@ const initializeApp = () => {
         if (isNaN(value)) {
             $("#amount").value = ""
         }
+    })
+
+    $("#btn-add-category").addEventListener("click", (e) => {
+        e.preventDefault()
+        addCategory()
     })
 
 
