@@ -235,6 +235,17 @@ const editTransaction = () => {
     setData("transactions", editedTransactions)
 }
 
+const editCategory = () => {
+    const categoryId = $("#btn-edit-category").getAttribute("data-id")
+    const editedCategories = getData("categories").map(category => {
+        if (category.id === categoryId) {
+            return saveCategoryData(category.id)
+        }
+        return category
+    })
+    setData("categories", editedCategories)
+}
+
 const editTransactionForm = (id) => {
     hideElements(["#balance-section", "#new-transaction-title", "#btn-create-transaction"])
     showElements(["#transaction-form-section", "#edit-transaction-title", "#btn-edit-transaction"])
@@ -256,7 +267,6 @@ const editCategoryForm = (id) => {
     const categorySelected = getData("categories").find(category => category.id === id)
     $("#category-name").value = categorySelected.categoryName
 }
-
 
 const openDeleteModal = (id, description) => {
     showElements(["#transaction-modal"])
@@ -379,6 +389,25 @@ const initializeApp = () => {
         }
     })
 
+    $("#btn-edit-category").addEventListener("click", (e) => {
+        e.preventDefault()
+        if (validateCategoryForm()) {
+            editCategory()
+            showElements(["#edit-category-success-message"])
+            setTimeout(() => hideElements(["#edit-category-success-message"]), 2000)
+            const currentCategories = getData("categories")
+            renderCategoriesOptions(currentCategories)
+            renderCategoriesTable(currentCategories)
+        }
+    })
+
+    $("#btn-cancel-category").addEventListener("click", (e) => {
+        e.preventDefault()
+        hideElements(["#edit-category-title", "#edit-btns-container"])
+        showElements(["#new-category-title", "#btn-add-category", "#category-table"])   
+        $("#edit-function-container").classList.remove("flex-col")
+        $("#edit-function-container").classList.add("flex-row")
+    })
 
 }
 
