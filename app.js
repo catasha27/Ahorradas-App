@@ -91,7 +91,12 @@ const renderTransactions = (transactions) => {
 
 const renderCategoriesOptions = (categories) => {
     cleanContainer("#category-option")
-    for (const category of categories) { 
+    const categoriesSorted = categories.toSorted((a, b) => {
+        if (a.categoryName < b.categoryName) return -1
+        if (a.categoryName > b.categoryName) return 1
+        return 0
+    })
+    for (const category of categoriesSorted) { 
         $("#category-option").innerHTML += `
             <option value="${category.categoryName}" data-id="${category.id}" aria-label="${category.categoryName}">${category.categoryName}</option>
         `        
@@ -326,6 +331,9 @@ const initializeApp = () => {
     $("#btn-add-category").addEventListener("click", (e) => {
         e.preventDefault()
         addCategory()
+        const currentCategories = getData("categories")
+        renderCategoriesOptions(currentCategories)
+        renderCategoriesTable(currentCategories)
     })
 
 
