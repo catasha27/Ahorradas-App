@@ -46,7 +46,7 @@ const renderTransactions = (transactions) => {
                         <button class="btn-edit-transaction text-slate-50" aria-label="Editar operación" onclick="editTransactionForm('${id}')">
                             <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
                         </button>
-                        <button class="btn-delete-transaction text-slate-50" aria-label="Eliminar operación" onclick="deleteTransaction('${id}')">
+                        <button class="btn-delete-transaction text-slate-50" aria-label="Eliminar operación" onclick="openDeleteModal('${id}', '${description}')">
                             <span class="py-2 px-[13px] bg-red-600/90 hover:bg-red-700/90 rounded"><i class="fa-solid fa-trash" aria-hidden="true"></i></span>
                         </button>
                     </td>
@@ -108,6 +108,20 @@ const editTransactionForm = (id) => {
     $("#category-option").value = transactionSelected.category
     $("#amount").valueAsNumber = transactionSelected.amount
     $("#transaction-date").value = transactionSelected.date
+}
+
+const openDeleteModal = (id, description) => {
+    showElements(["#transaction-modal"])
+    $("#btn-delete-modal").setAttribute("data-id", id)
+    $(".transaction-name").innerText = description
+    $("#btn-cancel-modal").addEventListener("click", () => {
+        hideElements(["#transaction-modal"])
+    })
+    $("#btn-delete-modal").addEventListener("click", () => {
+        const transactionId = $("#btn-delete-modal").getAttribute("data-id")
+        deleteTransaction(transactionId)
+        hideElements(["#transaction-modal"])
+    })
 }
 
 // EVENTS

@@ -41,6 +41,23 @@
         </nav>
     </header>
     
+    <!-- Modal delete transaction form-->
+    <section id="transaction-modal" class="flex justify-center items-center fixed z-50 bottom-0 left-0 right-0 top-0 bg-slate-500/30 hidden">
+        <article>
+            <div class="modal container p-4 bg-white rounded-md">
+                <header class="text-lg mb-8">
+                    <h5>¿Está usted seguro de querer eliminar operación: <span class="transaction-name text-lg font-medium"></span>?</h5>
+                </header>
+                <footer class="flex flex-row justify-end gap-4">
+                    <button id="btn-cancel-modal" class="btn flex-start text-base py-2 px-4 bg-slate-300 hover:bg-slate-400 rounded-md" aria-label="Cerrar ventana modal">Cerrar
+                    </button>
+                    <button id="btn-delete-modal" class="btn flex-start text-slate-50 text-base py-2 px-4 bg-red-600/90 hover:bg-red-700/90 rounded-md" aria-label="Eliminar operación seleccionada">Eliminar
+                    </button>
+                </footer>
+            </div>
+        </article>
+    </section>
+
     <!-- MAIN SECTION -->
     <main class="flex flex-row justify-center w-full">
         <article class="flex flex-col items-center w-full sm:w-11/12 xl:w-[1000px]">
