@@ -101,7 +101,7 @@ const renderCategoriesOptions = (categories) => {
         <option value="" aria-label="Mostrar todas">Todas</option>`
     for (const { categoryName, id } of categoriesSorted) { 
         $("#category-option").innerHTML += `
-            <option value="${categoryName}" data-id="${id}" aria-label="${categoryName}">${categoryName}</option>
+            <option value="${id}" aria-label="${categoryName}">${categoryName}</option>
         `
         $("#category-menu").innerHTML += `
         <option value="${id}" aria-label="${categoryName}">${categoryName}</option>
@@ -116,10 +116,10 @@ const renderCategoriesTable = (categories) => {
         if (a.categoryName > b.categoryName) return 1
         return 0
     })
-    for (const category of categoriesSorted) {
+    for (const { categoryName } of categoriesSorted) {
         $("#category-data").innerHTML += `
         <tr class="flex justify-between items-center flex-wrap mb-3 text-base">
-            <td class="basis-1/2 sm:basis-auto text-left py-3"><span class="py-1 px-2.5 text-sm font-normal text-teal-600 bg-teal-100/30 rounded">${category.categoryName}</span>
+            <td class="basis-1/2 sm:basis-auto text-left py-3"><span class="py-1 px-2.5 text-sm font-normal text-teal-600 bg-teal-100/30 rounded">${categoryName}</span>
             </td>
             <td class="flex justify-end gap-4 py-4">
                 <button class="btn-edit-category text-slate-50" aria-label="Editar categoría">
@@ -172,13 +172,24 @@ const validateCategoryForm = () => {
 
 // DATA STORAGE
 
+// const saveTransactionData = (transactionId) => {
+//     const categoryId = $("#category-option").options[$("#category-option").selectedIndex].getAttribute("data-id")
+//     return {
+//         id: transactionId ? transactionId : randomId(),
+//         description: $("#transaction-description").value,
+//         type: $("#transaction-type").value,
+//         category: categoryId,
+//         amount: $("#amount").valueAsNumber,
+//         date: $("#transaction-date").value
+//     }
+// }
+
 const saveTransactionData = (transactionId) => {
-    const categoryId = $("#category-option").options[$("#category-option").selectedIndex].getAttribute("data-id")
     return {
         id: transactionId ? transactionId : randomId(),
         description: $("#transaction-description").value,
         type: $("#transaction-type").value,
-        category: categoryId,
+        category: $("#category-option").value,
         amount: $("#amount").valueAsNumber,
         date: $("#transaction-date").value
     }
