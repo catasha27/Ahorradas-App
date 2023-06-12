@@ -92,7 +92,7 @@ const renderCategoriesOptions = (categories) => {
     cleanContainer("#category-option")
     for (const category of categories) { 
         $("#category-option").innerHTML += `
-            <option value="${category.categoryName}" aria-label="${category.categoryName}">${category.categoryName}</option>
+            <option value="${category.categoryName}" data-id="${category.id}" aria-label="${category.categoryName}">${category.categoryName}</option>
         `        
     }
 }
@@ -123,11 +123,12 @@ const validateTransactionForm = () => {
 // DATA STORAGE
 
 const saveTransactionData = (transactionId) => {
+    const categoryId = $("#category-option").options[$("#category-option").selectedIndex].getAttribute("data-id")
     return {
         id: transactionId ? transactionId : randomId(),
         description: $("#transaction-description").value,
         type: $("#transaction-type").value,
-        category: $("#category-option").value,
+        category: categoryId,
         amount: $("#amount").valueAsNumber,
         date: $("#transaction-date").value
     }
