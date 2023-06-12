@@ -20,7 +20,35 @@ const randomId = () => self.crypto.randomUUID()
 const getData = (key) => JSON.parse(localStorage.getItem(key))
 const setData = (key, array) => localStorage.setItem(key, JSON.stringify(array))
 
+const defaultCategories = [
+    {
+        id: randomId,
+        categoryName: "Comida"
+    },
+    {
+        id: randomId,
+        categoryName: "Servicios"
+    },
+    {
+        id: randomId,
+        categoryName: "Salidas"
+    },
+    {
+        id: randomId,
+        categoryName: "Educación"
+    },
+    {
+        id: randomId,
+        categoryName: "Transporte"
+    },
+    {
+        id: randomId,
+        categoryName: "Trabajo"
+    },
+]
+
 const allTransactions = getData("transactions") || []
+const allCategories= getData("categories") || defaultCategories
 
 // RENDERS
 
@@ -151,6 +179,7 @@ const openDeleteModal = (id, description) => {
 
 const initializeApp = () => {
     setData("transactions", allTransactions)
+    setData("categories", allCategories)
     renderTransactions(allTransactions)
 
     const clickOnBurger = () => {
