@@ -125,7 +125,7 @@ const renderCategoriesTable = (categories) => {
                 <button class="btn-edit-category text-slate-50" aria-label="Editar categoría" onclick="editCategoryForm('${id}')">
                     <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
                 </button>
-                <button class="btn-delete-category text-slate-50" aria-label="Eliminar categoría">
+                <button class="btn-delete-category text-slate-50" aria-label="Eliminar categoría" onclick="deleteCategory('${id}')">
                     <span class="py-2 px-[13px] bg-red-600/90 hover:bg-red-700/90 rounded"><i class="fa-solid fa-trash" aria-hidden="true"></i></span>
                 </button>
             </td>
@@ -222,6 +222,20 @@ const deleteTransaction = (id) => {
     const currentTransactions = getData("transactions").filter(transaction => transaction.id !== id)
     setData("transactions", currentTransactions)
     renderTransactions(currentTransactions)
+}
+
+const deleteTransactionsByCategory = (category) => {
+    const currentTransactions = getData("transactions").filter(transaction => transaction.category !== category)
+    setData("transactions", currentTransactions)
+    renderTransactions(currentTransactions)
+}
+
+const deleteCategory = (id) => {
+    const currentCategories = getData("categories").filter(category => category.id !== id)
+    setData("categories", currentCategories)
+    renderCategoriesTable(currentCategories)
+    renderCategoriesOptions(currentCategories)
+    deleteTransactionsByCategory(id)
 }
 
 const editTransaction = () => {
