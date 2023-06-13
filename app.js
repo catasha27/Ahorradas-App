@@ -17,6 +17,8 @@ const showElements = (selectors) => {
 
 const randomId = () => self.crypto.randomUUID()
 
+const getCategoryName = (id) => getData("categories").find(categ => categ.id === id).categoryName
+
 const getData = (key) => JSON.parse(localStorage.getItem(key))
 const setData = (key, array) => localStorage.setItem(key, JSON.stringify(array))
 
@@ -63,12 +65,12 @@ const renderTransactions = (transactions) => {
         hideElements(["#no-transactions-message"])
         showElements(["#transaction-table"])
         for (const { id, description, type, category, date, amount} of transactions) {
-            const categorySelected = getData("categories").find(categ => categ.id === category)
+            const categoryName = getCategoryName(category)
             const isExpense = type === TRANSACTION_TYPE.EXPENSE
             $("#table-data").innerHTML += `
                 <tr class="flex justify-between items-center flex-wrap mb-4 md:mb-0 text-lg sm:text-base">
                     <td class="basis-1/2 sm:basis-auto text-left font-medium py-4">${description}</td>
-                    <td class="basis-1/2 sm:basis-auto text-right md:text-left py-3"><span class="py-1 px-2.5 text-base font-normal text-teal-600 bg-teal-100/30 rounded">${categorySelected.categoryName}</span></td>
+                    <td class="basis-1/2 sm:basis-auto text-right md:text-left py-3"><span class="py-1 px-2.5 text-base font-normal text-teal-600 bg-teal-100/30 rounded">${categoryName}</span></td>
                     <td class="text-right py-4 hidden md:block">${date}</td>
                     <td class="text-right text-2xl sm:text-base font-bold py-3 ${isExpense ? "text-red-600" : "text-green-600" }">${isExpense ? "-" : "+"}${amount}</td>
                     <td class="flex justify-end gap-4 py-4">
@@ -85,7 +87,6 @@ const renderTransactions = (transactions) => {
     } else {
         hideElements(["#transaction-table"])
         showElements(["#no-transactions-message"])
-
     }
 }
 
@@ -296,6 +297,111 @@ const openDeleteModal = (id, description) => {
     })
 }
 
+// REPORTS
+
+// Reports by Category
+
+const getCategoryReport = () => {
+    const transactions = getData("transactions").toSorted((a, b) => {
+        if (a.category < b.category) return -1
+        if (a.category > b.category) return 1
+        return 0
+    })
+    
+    const categoryReport = []
+    let earnings = 0
+    let expenses = 0
+    let currentCategory = transactions[0].category
+    for (const { category, amount, type } of transactions) {
+        if (currentCategory !== category) {
+            categoryReport.push({
+                category: getCategoryName(currentCategory),
+                totalEarnings: earnings,
+                totalExpenses: expenses
+            })
+            earnings = 0
+            expenses = 0
+            currentCategory = category
+        }
+        if (type === TRANSACTION_TYPE.EXPENSE) {
+            expenses += amount
+        } else {
+            earnings += amount
+        }
+    }
+    categoryReport.push({
+        category: getCategoryName(currentCategory),
+        totalEarnings: earnings,
+        totalExpenses: expenses
+    })
+    return categoryReport.toSorted((a, b) => {
+        if (a.category < b.category) return -1
+        if (a.category > b.category) return 1
+        return 0
+        })
+}
+
+const renderCategoryReport = (transactions) => {
+    cleanContainer("#category-table-data")
+    if (transactions.length) {
+        hideElements(["#no-reports-message"])
+        showElements(["#report-table"])
+        for (const { category, totalEarnings, totalExpenses} of getCategoryReport()) {
+            $("#category-table-data").innerHTML += `
+            <tr class="flex justify-between text-sm sm:text-base">
+                <td class="flex-1 text-left font-medium py-3">${category}</td>
+                <td class="flex-1 text-right text-green-600 py-3">+$${totalEarnings}</td>
+                <td class="flex-1 text-right text-red-600 py-3">+$${totalExpenses}</td>
+                <td class="flex-1 text-right py-3">$${totalEarnings - totalExpenses}</td>
+            </tr>
+            `
+        }
+    } else {
+        hideElements(["#transaction-table"])
+        showElements(["#no-reports-message"])
+    }
+}
+
+
+
+// Reports by Month
+
+const getMonth = (date) => `${date.slice(5, 7)}/${date.slice(0, 4)}`
+
+const getMonthlyReport = () => {
+    const transactions = getData("transactions").toSorted((a, b) => b.date - a.date)
+    const monthlyReport = []
+    let earnings = 0
+    let expenses = 0
+    let currentMonth = getMonth(transactions[0].date)
+    for (const { date, amount, type } of transactions) {
+        if (currentMonth !== getMonth(date)) {
+            monthlyReport.push({
+                month: currentMonth,
+                totalEarnings: earnings,
+                totalExpenses: expenses
+            })
+            earnings = 0
+            expenses = 0
+            currentMonth = getMonth(date)
+        }
+        if (type === TRANSACTION_TYPE.EXPENSE) {
+            expenses += amount
+        } else {
+            earnings += amount
+        }
+    }
+    monthlyReport.push({
+        month: currentMonth,
+        totalEarnings: earnings,
+        totalExpenses: expenses
+    })
+    return monthlyReport
+}
+
+
+
+
 // EVENTS
 
 const initializeApp = () => {
@@ -336,6 +442,7 @@ const initializeApp = () => {
     $("#reports-link").addEventListener("click", () => {
         showElements(["#reports-section"])
         hideElements(["#balance-section", "#transaction-form-section", "#category-form-section"])
+        renderCategoryReport(getData("transactions"))
     })
 
     const clickOnFilters = () => {
