@@ -138,6 +138,7 @@ const renderCategoriesTable = (categories) => {
 const validateTransactionForm = () => {
     const description = $("#transaction-description").value.trim()
     const amount = $("#amount").valueAsNumber
+    const date = $("#transaction-date").value
 
     if (description == "") {
         showElements([".description-error"])
@@ -147,7 +148,7 @@ const validateTransactionForm = () => {
         $("#transaction-description").classList.remove("border-red-600")
     }
 
-    if (amount == "") {
+    if (amount == "" || isNaN(amount)) {
         showElements([".amount-error"])
         $("#amount").classList.add("border-red-600")
     } else {
@@ -155,7 +156,15 @@ const validateTransactionForm = () => {
         $("#amount").classList.remove("border-red-600")
     }
 
-    return description !== "" && amount !== ""
+    if (date == "") {
+        showElements([".date-error"])
+        $("#transaction-date").classList.add("border-red-600")
+    } else {
+        hideElements([".date-error"])
+        $("#transaction-date").classList.remove("border-red-600")
+    }
+
+    return description !== "" && amount !== "" && !isNaN(amount) && date !== ""
 }
 
 const validateCategoryForm = () => {
@@ -297,23 +306,23 @@ const openDeleteModal = (id, description) => {
 
 const getBalanceReport = () => {
     const transactions = getfilteredTransactions()
-    
+
     let earnings = 0
     let expenses = 0
     for (const { amount, type } of transactions) {
-      if (type === TRANSACTION_TYPE.EXPENSE) {
-          expenses += amount
-      } else {
-          earnings += amount
-      }
+        if (type === TRANSACTION_TYPE.EXPENSE) {
+            expenses += amount
+        } else {
+            earnings += amount
+        }
     }
     const balanceReport = {
-      totalEarnings: earnings,
-      totalExpenses: expenses,
-      totalBalance: earnings - expenses
+        totalEarnings: earnings,
+        totalExpenses: expenses,
+        totalBalance: earnings - expenses
     }
     return balanceReport
-  }
+}
 
 const renderBalanceReport = () => { 
     cleanContainer("#balance-summary-data")
@@ -327,11 +336,22 @@ const renderBalanceReport = () => {
         <p class="text-lg">Gastos</p>
         <p id="total-expenses" class="text-red-600 font-light">-$${totalExpenses}</p>
     </div>
+    `
+    if (totalBalance) {
+    $("#balance-summary-data").innerHTML += `
     <div class="flex flex-row justify-between py-3">
         <p class="text-2xl">Total</p>
         <p id="money-available" class="font-bold ${totalBalance > 0 ? "text-green-600" : "text-red-600"}">${totalBalance > 0 ? "+" : "-"}$${Math.abs(totalBalance)}</p>
     </div>
     `
+    } else {
+        $("#balance-summary-data").innerHTML += `
+        <div class="flex flex-row justify-between py-3">
+            <p class="text-2xl">Total</p>
+            <p id="money-available" class="font-bold">$0</p>
+        </div>
+        `
+    }
 }
 
 // FILTERS
@@ -339,53 +359,53 @@ const renderBalanceReport = () => {
 const getfilteredTransactions = () => {
     const dateValue = $("#date-filter").value
     const currentTransactions = getData("transactions").filter(({ date }) => dateValue <= date)
-      
+        
     const typeValue = $("#transaction-option").value
     let transactionsByType = currentTransactions
     if (typeValue) {
-      transactionsByType = transactionsByType.filter(({ type }) => type === typeValue)  
+        transactionsByType = transactionsByType.filter(({ type }) => type === typeValue)  
     }
-    
+
     const categoryId = $("#category-menu").value
     let transactionsByCategory = transactionsByType
     if (categoryId) {
-      transactionsByCategory = transactionsByCategory.filter(({ category }) => category === categoryId)
+        transactionsByCategory = transactionsByCategory.filter(({ category }) => category === categoryId)
     }  
-  
+
     const orderValue = $("#order-menu").value
     let transactionsByOrder = transactionsByCategory
     if (orderValue === "most-recent-data") {
-      transactionsByOrder = transactionsByCategory.toSorted((a, b) => {
+        transactionsByOrder = transactionsByCategory.toSorted((a, b) => {
         if (a.date < b.date) return 1
         if (a.date > b.date) return -1
         return 0
-      })
+        })
     } else if (orderValue === "less-recent-data"){
-      transactionsByOrder = transactionsByCategory.toSorted((a, b) => {
+        transactionsByOrder = transactionsByCategory.toSorted((a, b) => {
         if (a.date < b.date) return -1
         if (a.date > b.date) return 1
         return 0
-      })
+        })
     } else if (orderValue === "highest-amount"){
-      transactionsByOrder = transactionsByCategory.toSorted((a, b) => b.amount - a.amount)
+        transactionsByOrder = transactionsByCategory.toSorted((a, b) => b.amount - a.amount)
     } else if (orderValue === "lowest-amount"){
-      transactionsByOrder = transactionsByCategory.toSorted((a, b) => a.amount - b.amount)
+        transactionsByOrder = transactionsByCategory.toSorted((a, b) => a.amount - b.amount)
     } else if (orderValue === "ascendant-alphabetical-order"){
-      transactionsByOrder = transactionsByCategory.toSorted((a, b) => {
+        transactionsByOrder = transactionsByCategory.toSorted((a, b) => {
         if (a.description < b.description) return -1
         if (a.description > b.description) return 1
         return 0
-      })
+        })
     } else if (orderValue === "descendant-alphabetical-order"){
-      transactionsByOrder = transactionsByCategory.toSorted((a, b) => 
-      {
+        transactionsByOrder = transactionsByCategory.toSorted((a, b) => 
+        {
         if (a.description < b.description) return 1
         if (a.description > b.description) return -1
         return 0
-      })
+        })
     } 
     return transactionsByOrder
-  }
+}
 
 // REPORTS
 
@@ -675,6 +695,7 @@ const initializeApp = () => {
             setTimeout(() => hideElements(["#new-success-message"]), 2000)
             renderTransactions(getfilteredTransactions())
             $("#new-transaction-form").reset()
+            renderBalanceReport()
         }
     })
 
@@ -683,6 +704,7 @@ const initializeApp = () => {
         hideElements(["#transaction-form-section"])
         showElements(["#balance-section", "#transaction-section"])
         renderTransactions(getfilteredTransactions())
+        renderBalanceReport()
     })
 
     $("#btn-edit-transaction").addEventListener("click", (e) => {
@@ -693,6 +715,7 @@ const initializeApp = () => {
             setTimeout(() => hideElements(["#edit-success-message"]), 2000)
             renderTransactions(getfilteredTransactions())
             $("#new-transaction-form").reset()
+            renderBalanceReport()
         }
     })
 
