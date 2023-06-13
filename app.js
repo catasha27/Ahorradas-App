@@ -173,18 +173,6 @@ const validateCategoryForm = () => {
 
 // DATA STORAGE
 
-// const saveTransactionData = (transactionId) => {
-//     const categoryId = $("#category-option").options[$("#category-option").selectedIndex].getAttribute("data-id")
-//     return {
-//         id: transactionId ? transactionId : randomId(),
-//         description: $("#transaction-description").value,
-//         type: $("#transaction-type").value,
-//         category: categoryId,
-//         amount: $("#amount").valueAsNumber,
-//         date: $("#transaction-date").value
-//     }
-// }
-
 const saveTransactionData = (transactionId) => {
     return {
         id: transactionId ? transactionId : randomId(),
@@ -299,6 +287,89 @@ const openDeleteModal = (id, description) => {
 
 // REPORTS
 
+// Reports Summary
+
+const getCategoryByEarnings = () => (getCategoryReport()).toSorted((a, b) => b.totalEarnings - a.totalEarnings)[0]
+
+const getCategoryByExpenses = () => (getCategoryReport()).toSorted((a, b) => b.totalExpenses - a.totalExpenses)[0]
+
+const getCategoryByBalance = () => (getCategoryReport()).toSorted((a, b) => b.totalBalance - a.totalBalance)[0]
+
+const getMonthByEarnings = () => (getMonthlyReport()).toSorted((a, b) => b.totalEarnings - a.totalEarnings)[0]
+
+const getMonthByExpenses = () => (getMonthlyReport()).toSorted((a, b) => b.totalExpenses - a.totalExpenses)[0]
+
+const renderCategoryByEarnings = () => {
+    const { category, totalEarnings} = getCategoryByEarnings()
+    $("#report-summary-table-data").innerHTML += `
+        <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+            <td class="flex-1 text-left font-medium py-3">Categoría con mayor ganancia</td>
+            <td class="flex-1 text-right py-3"><span class="py-1 px-2.5 text-xs font-normal text-teal-600 bg-teal-100/30 rounded">${category}</span></td>
+            <td class="flex-1 text-right font-medium text-green-600 py-3">+$${totalEarnings}</td>
+        </tr>
+    `
+}
+
+const renderCategoryByExpenses = () => {
+    const { category, totalExpenses} = getCategoryByExpenses()
+    $("#report-summary-table-data").innerHTML += `
+        <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+            <td class="flex-1 text-left font-medium py-3">Categoría con mayor gasto</td>
+            <td class="flex-1 text-right py-3"><span class="py-1 px-2.5 text-xs font-normal text-teal-600 bg-teal-100/30 rounded">${category}</span></td>
+            <td class="flex-1 text-right font-medium text-red-600 py-3">-$${totalExpenses}</td>
+        </tr>
+    `
+}
+
+const renderCategoryByBalance = () => {
+    const { category, totalBalance} = getCategoryByBalance()
+    $("#report-summary-table-data").innerHTML += `
+        <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+            <td class="flex-1 text-left font-medium py-3">Categoría con mayor balance</td>
+            <td class="flex-1 text-right py-3"><span class="py-1 px-2.5 text-xs font-normal text-teal-600 bg-teal-100/30 rounded">${category}</span></td>
+            <td class="flex-1 text-right font-medium py-3">$${totalBalance}</td>
+        </tr>
+    `
+}
+
+const renderMonthByEarnings = () => {
+    const { month, totalEarnings} = getMonthByEarnings()
+    $("#report-summary-table-data").innerHTML += `
+        <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+            <td class="flex-1 text-left font-medium py-3">Mes con mayor ganancia</td>
+            <td class="flex-1 text-right py-3">${month}</td>
+            <td class="flex-1 text-right font-medium text-green-600 py-3">+$${totalEarnings}</td>
+        </tr>
+    `
+}
+
+const renderMonthByExpenses = () => {
+    const { month, totalExpenses} = getMonthByExpenses()
+    $("#report-summary-table-data").innerHTML += `
+        <tr class="flex justify-between items-center mb-3 text-sm sm:text-base">
+            <td class="flex-1 text-left font-medium py-3">Mes con mayor gasto</td>
+            <td class="flex-1 text-right py-3">${month}</td>
+            <td class="flex-1 text-right font-medium text-red-600 py-3">-$${totalExpenses}</td>
+        </tr>
+    `
+}
+
+const renderReportSummary = (transactions) => {
+    cleanContainer("#report-summary-table-data")
+    if (transactions.length) {
+        hideElements(["#no-reports-message"])
+        showElements(["#report-table"])
+        renderCategoryByEarnings()
+        renderCategoryByExpenses()
+        renderCategoryByBalance()
+        renderMonthByEarnings()
+        renderMonthByExpenses()
+    } else {
+        hideElements(["#report-table"])
+        showElements(["#no-reports-message"])
+    }
+}
+
 // Reports by Category
 
 const getCategoryReport = () => {
@@ -317,7 +388,8 @@ const getCategoryReport = () => {
             categoryReport.push({
                 category: getCategoryName(currentCategory),
                 totalEarnings: earnings,
-                totalExpenses: expenses
+                totalExpenses: expenses,
+                totalBalance: earnings - expenses
             })
             earnings = 0
             expenses = 0
@@ -332,7 +404,8 @@ const getCategoryReport = () => {
     categoryReport.push({
         category: getCategoryName(currentCategory),
         totalEarnings: earnings,
-        totalExpenses: expenses
+        totalExpenses: expenses,
+        totalBalance: earnings - expenses
     })
     return categoryReport.toSorted((a, b) => {
         if (a.category < b.category) return -1
@@ -346,23 +419,21 @@ const renderCategoryReport = (transactions) => {
     if (transactions.length) {
         hideElements(["#no-reports-message"])
         showElements(["#report-table"])
-        for (const { category, totalEarnings, totalExpenses} of getCategoryReport()) {
+        for (const { category, totalEarnings, totalExpenses, totalBalance} of getCategoryReport()) {
             $("#category-table-data").innerHTML += `
             <tr class="flex justify-between text-sm sm:text-base">
                 <td class="flex-1 text-left font-medium py-3">${category}</td>
                 <td class="flex-1 text-right text-green-600 py-3">+$${totalEarnings}</td>
-                <td class="flex-1 text-right text-red-600 py-3">+$${totalExpenses}</td>
-                <td class="flex-1 text-right py-3">$${totalEarnings - totalExpenses}</td>
+                <td class="flex-1 text-right text-red-600 py-3">-$${totalExpenses}</td>
+                <td class="flex-1 text-right py-3">$${totalBalance}</td>
             </tr>
             `
         }
     } else {
-        hideElements(["#transaction-table"])
+        hideElements(["#report-table"])
         showElements(["#no-reports-message"])
     }
 }
-
-
 
 // Reports by Month
 
@@ -379,7 +450,8 @@ const getMonthlyReport = () => {
             monthlyReport.push({
                 month: currentMonth,
                 totalEarnings: earnings,
-                totalExpenses: expenses
+                totalExpenses: expenses,
+                totalBalance: earnings - expenses
             })
             earnings = 0
             expenses = 0
@@ -394,12 +466,32 @@ const getMonthlyReport = () => {
     monthlyReport.push({
         month: currentMonth,
         totalEarnings: earnings,
-        totalExpenses: expenses
+        totalExpenses: expenses,
+        totalBalance: earnings - expenses
     })
     return monthlyReport
 }
 
-
+const renderMonthlyReport = (transactions) => {
+    cleanContainer("#monthly-table-data")
+    if (transactions.length) {
+        hideElements(["#no-reports-message"])
+        showElements(["#report-table"])
+        for (const { month, totalEarnings, totalExpenses, totalBalance} of getMonthlyReport()) {
+            $("#monthly-table-data").innerHTML += `
+            <tr class="flex justify-between text-sm sm:text-base">
+                <td class="flex-1 text-left font-medium py-3">${month}</td>
+                <td class="flex-1 text-right text-green-600 py-3">+$${totalEarnings}</td>
+                <td class="flex-1 text-right text-red-600 py-3">-$${totalExpenses}</td>
+                <td class="flex-1 text-right py-3">$${totalBalance}</td>
+            </tr>
+            `
+        }
+    } else {
+        hideElements(["#report-table"])
+        showElements(["#no-reports-message"])
+    }
+}
 
 
 // EVENTS
@@ -442,7 +534,9 @@ const initializeApp = () => {
     $("#reports-link").addEventListener("click", () => {
         showElements(["#reports-section"])
         hideElements(["#balance-section", "#transaction-form-section", "#category-form-section"])
+        renderReportSummary(getData("transactions"))
         renderCategoryReport(getData("transactions"))
+        renderMonthlyReport(getData("transactions"))
     })
 
     const clickOnFilters = () => {
