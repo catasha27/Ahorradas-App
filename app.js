@@ -293,7 +293,46 @@ const openDeleteModal = (id, description) => {
     })
 }
 
+// BALANCE
 
+const getBalanceReport = () => {
+    const transactions = getfilteredTransactions()
+    
+    let earnings = 0
+    let expenses = 0
+    for (const { amount, type } of transactions) {
+      if (type === TRANSACTION_TYPE.EXPENSE) {
+          expenses += amount
+      } else {
+          earnings += amount
+      }
+    }
+    const balanceReport = {
+      totalEarnings: earnings,
+      totalExpenses: expenses,
+      totalBalance: earnings - expenses
+    }
+    return balanceReport
+  }
+
+const renderBalanceReport = () => { 
+    cleanContainer("#balance-summary-data")
+    const { totalEarnings, totalExpenses, totalBalance} = getBalanceReport()
+    $("#balance-summary-data").innerHTML += `
+    <div class="flex flex-row justify-between py-3">
+        <p class="text-lg">Ganancias</p>
+        <p id="total-earnings" class="text-green-600 font-light">+$${totalEarnings}</p>
+    </div>
+    <div class="flex flex-row justify-between py-3">
+        <p class="text-lg">Gastos</p>
+        <p id="total-expenses" class="text-red-600 font-light">-$${totalExpenses}</p>
+    </div>
+    <div class="flex flex-row justify-between py-3">
+        <p class="text-2xl">Total</p>
+        <p id="money-available" class="font-bold ${totalBalance > 0 ? "text-green-600" : "text-red-600"}">${totalBalance > 0 ? "+" : "-"}$${Math.abs(totalBalance)}</p>
+    </div>
+    `
+}
 
 // FILTERS
 
@@ -417,7 +456,7 @@ const renderMonthByExpenses = () => {
     `
 }
 
-const renderReportSummary = (transactions) => {
+const renderReportSummary = () => {
     cleanContainer("#report-summary-table-data")
     if (transactions.length) {
         hideElements(["#no-reports-message"])
@@ -477,7 +516,7 @@ const getCategoryReport = () => {
         })
 }
 
-const renderCategoryReport = (transactions) => {
+const renderCategoryReport = () => {
     cleanContainer("#category-table-data")
     if (transactions.length) {
         hideElements(["#no-reports-message"])
@@ -535,7 +574,7 @@ const getMonthlyReport = () => {
     return monthlyReport
 }
 
-const renderMonthlyReport = (transactions) => {
+const renderMonthlyReport = () => {
     cleanContainer("#monthly-table-data")
     if (transactions.length) {
         hideElements(["#no-reports-message"])
@@ -563,6 +602,7 @@ const initializeApp = () => {
     setData("transactions", allTransactions)
     setData("categories", allCategories)
     renderTransactions(getfilteredTransactions())
+    renderBalanceReport()
     renderCategoriesOptions(allCategories)
     renderCategoriesTable(allCategories)
 
@@ -698,21 +738,25 @@ const initializeApp = () => {
     $("#date-filter").addEventListener("input", () => {
         const filteredTransactions = getfilteredTransactions()
         renderTransactions(filteredTransactions)
+        renderBalanceReport()
     })
       
     $("#transaction-option").addEventListener("input", () => {
         const filteredTransactions = getfilteredTransactions()
         renderTransactions(filteredTransactions)
+        renderBalanceReport()
     })
       
     $("#category-menu").addEventListener("input", () => {
         const filteredTransactions = getfilteredTransactions()
         renderTransactions(filteredTransactions)
+        renderBalanceReport()
     })
       
     $("#order-menu").addEventListener("input", () => {
         const filteredTransactions = getfilteredTransactions()
         renderTransactions(filteredTransactions)
+        renderBalanceReport()
     }) 
 
 }
