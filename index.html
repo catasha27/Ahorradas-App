@@ -69,18 +69,21 @@
                     <!-- Balance summary -->
                     <section id="balance-summary" class="p-4 text-xl bg-white drop-shadow-xl rounded-md">
                         <h2 class="mb-5 text-3xl font-bold">Balance</h2>
-                        <div class="flex flex-row justify-between py-3">
-                            <p>Ganancias</p>
-                            <p id="total-earnings" class="text-green-600 font-light">+$0</p>
-                        </div>
-                        <div class="flex flex-row justify-between py-3">
-                            <p>Gastos</p>
-                            <p id="total-expenses" class="text-red-600 font-light">-$0</p>
-                        </div>
-                        <div class="flex flex-row justify-between py-3">
-                            <p class="text-2xl">Total</p>
-                            <p id="money-available" class="font-bold">$0</p>
-                        </div>
+                        <!-- Here we will render the balance summary from localstorage rendered in the transaction table-->
+                        <article id="balance-summary-data">
+                            <div class="flex flex-row justify-between py-3">
+                                <p>Ganancias</p>
+                                <p id="total-earnings" class="text-green-600 font-light">+$${}</p>
+                            </div>
+                            <div class="flex flex-row justify-between py-3">
+                                <p>Gastos</p>
+                                <p id="total-expenses" class="text-red-600 font-light">-$${}</p>
+                            </div>
+                            <div class="flex flex-row justify-between py-3">
+                                <p class="text-2xl">Total</p>
+                                <p id="money-available" class="font-bold">$${}</p>
+                            </div>
+                        </article>
                     </section> 
 
                     <!-- Filters -->
@@ -99,7 +102,6 @@
                             </select>
                             <label for="category-menu" class="my-3 text-neutral-800 font-bold">Categoría</label>
                             <select name="category-menu" id="category-menu" class="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500/25 focus-visible:outline-none" aria-label="Listado de categorías">
-                                
                                 <!-- Here we will render categories from localstorage or the default ones -->
                             </select>
                             <label for="date-filter" class="my-3 text-neutral-800 font-bold">Desde</label>
