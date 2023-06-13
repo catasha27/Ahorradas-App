@@ -171,6 +171,14 @@ const validateCategoryForm = () => {
     return category !== ""
 }
 
+const initializeDate = () => {
+    const date = new Date()
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, "0")
+    const initialDate = `${year}-${month}-01`
+    $("#date-filter").value = initialDate
+}
+
 // DATA STORAGE
 
 const saveTransactionData = (transactionId) => {
@@ -284,6 +292,61 @@ const openDeleteModal = (id, description) => {
         hideElements(["#transaction-modal"])
     })
 }
+
+
+
+// FILTERS
+
+const getfilteredTransactions = () => {
+    const dateValue = $("#date-filter").value
+    const currentTransactions = getData("transactions").filter(({ date }) => dateValue <= date)
+      
+    const typeValue = $("#transaction-option").value
+    let transactionsByType = currentTransactions
+    if (typeValue) {
+      transactionsByType = transactionsByType.filter(({ type }) => type === typeValue)  
+    }
+    
+    const categoryId = $("#category-menu").value
+    let transactionsByCategory = transactionsByType
+    if (categoryId) {
+      transactionsByCategory = transactionsByCategory.filter(({ category }) => category === categoryId)
+    }  
+  
+    const orderValue = $("#order-menu").value
+    let transactionsByOrder = transactionsByCategory
+    if (orderValue === "most-recent-data") {
+      transactionsByOrder = transactionsByCategory.toSorted((a, b) => {
+        if (a.date < b.date) return 1
+        if (a.date > b.date) return -1
+        return 0
+      })
+    } else if (orderValue === "less-recent-data"){
+      transactionsByOrder = transactionsByCategory.toSorted((a, b) => {
+        if (a.date < b.date) return -1
+        if (a.date > b.date) return 1
+        return 0
+      })
+    } else if (orderValue === "highest-amount"){
+      transactionsByOrder = transactionsByCategory.toSorted((a, b) => b.amount - a.amount)
+    } else if (orderValue === "lowest-amount"){
+      transactionsByOrder = transactionsByCategory.toSorted((a, b) => a.amount - b.amount)
+    } else if (orderValue === "ascendant-alphabetical-order"){
+      transactionsByOrder = transactionsByCategory.toSorted((a, b) => {
+        if (a.description < b.description) return -1
+        if (a.description > b.description) return 1
+        return 0
+      })
+    } else if (orderValue === "descendant-alphabetical-order"){
+      transactionsByOrder = transactionsByCategory.toSorted((a, b) => 
+      {
+        if (a.description < b.description) return 1
+        if (a.description > b.description) return -1
+        return 0
+      })
+    } 
+    return transactionsByOrder
+  }
 
 // REPORTS
 
@@ -488,18 +551,18 @@ const renderMonthlyReport = (transactions) => {
             `
         }
     } else {
-        hideElements(["#report-table"])
+        hideElements(["#report-table"]) 
         showElements(["#no-reports-message"])
     }
 }
 
-
 // EVENTS
 
 const initializeApp = () => {
+    initializeDate()
     setData("transactions", allTransactions)
     setData("categories", allCategories)
-    renderTransactions(allTransactions)
+    renderTransactions(getfilteredTransactions())
     renderCategoriesOptions(allCategories)
     renderCategoriesTable(allCategories)
 
@@ -524,6 +587,7 @@ const initializeApp = () => {
     $("#balance-link").addEventListener("click", () => {
         showElements(["#balance-section"])
         hideElements(["#transaction-form-section", "#category-form-section", "#reports-section"])
+        renderTransactions(getfilteredTransactions())
     })
     
     $("#category-link").addEventListener("click", () => {
@@ -560,6 +624,7 @@ const initializeApp = () => {
     $("#btn-add-transaction").addEventListener("click", () => {
         showElements(["#transaction-form-section", "#new-transaction-title", "#btn-create-transaction"])
         hideElements(["#balance-section", "#transaction-section", "#edit-transaction-title", "#btn-edit-transaction"])
+        $("#new-transaction-form").reset()
     })
 
     $("#btn-create-transaction").addEventListener("click", (e) => {
@@ -568,6 +633,8 @@ const initializeApp = () => {
             addTransaction()
             showElements(["#new-success-message"])
             setTimeout(() => hideElements(["#new-success-message"]), 2000)
+            renderTransactions(getfilteredTransactions())
+            $("#new-transaction-form").reset()
         }
     })
 
@@ -575,6 +642,7 @@ const initializeApp = () => {
         e.preventDefault()
         hideElements(["#transaction-form-section"])
         showElements(["#balance-section", "#transaction-section"])
+        renderTransactions(getfilteredTransactions())
     })
 
     $("#btn-edit-transaction").addEventListener("click", (e) => {
@@ -583,7 +651,8 @@ const initializeApp = () => {
             editTransaction()
             showElements(["#edit-success-message"])
             setTimeout(() => hideElements(["#edit-success-message"]), 2000)
-            renderTransactions(getData("transactions"))
+            renderTransactions(getfilteredTransactions())
+            $("#new-transaction-form").reset()
         }
     })
 
@@ -601,6 +670,7 @@ const initializeApp = () => {
             const currentCategories = getData("categories")
             renderCategoriesOptions(currentCategories)
             renderCategoriesTable(currentCategories)
+            $("#new-category-form").reset()
         }
     })
 
@@ -613,6 +683,7 @@ const initializeApp = () => {
             const currentCategories = getData("categories")
             renderCategoriesOptions(currentCategories)
             renderCategoriesTable(currentCategories)
+            $("#new-category-form").reset()
         }
     })
 
@@ -623,6 +694,26 @@ const initializeApp = () => {
         $("#edit-function-container").classList.remove("flex-col")
         $("#edit-function-container").classList.add("flex-row")
     })
+
+    $("#date-filter").addEventListener("input", () => {
+        const filteredTransactions = getfilteredTransactions()
+        renderTransactions(filteredTransactions)
+    })
+      
+    $("#transaction-option").addEventListener("input", () => {
+        const filteredTransactions = getfilteredTransactions()
+        renderTransactions(filteredTransactions)
+    })
+      
+    $("#category-menu").addEventListener("input", () => {
+        const filteredTransactions = getfilteredTransactions()
+        renderTransactions(filteredTransactions)
+    })
+      
+    $("#order-menu").addEventListener("input", () => {
+        const filteredTransactions = getfilteredTransactions()
+        renderTransactions(filteredTransactions)
+    }) 
 
 }
 
