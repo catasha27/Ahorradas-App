@@ -53,7 +53,7 @@ const allCategories = getData("categories") || defaultCategories
 // RENDERS
 
 const TRANSACTION_TYPE = {
-    EXPENSE: "expenses",
+    EXPENSE: "expense",
     EARNING: "earning"
 }
 
@@ -70,7 +70,7 @@ const renderTransactions = (transactions) => {
                     <td class="basis-1/2 sm:basis-auto text-left font-medium py-4">${description}</td>
                     <td class="basis-1/2 sm:basis-auto text-right md:text-left py-3"><span class="py-1 px-2.5 text-base font-normal text-teal-600 bg-teal-100/30 rounded">${categorySelected.categoryName}</span></td>
                     <td class="text-right py-4 hidden md:block">${date}</td>
-                    <td class="text-right text-2xl sm:text-base font-bold py-3 ${isExpense ? "text-green-600" : "text-red-600"}">${isExpense ? "+" : "-"}${amount}</td>
+                    <td class="text-right text-2xl sm:text-base font-bold py-3 ${isExpense ? "text-red-600" : "text-green-600" }">${isExpense ? "-" : "+"}${amount}</td>
                     <td class="flex justify-end gap-4 py-4">
                         <button class="btn-edit-transaction text-slate-50" aria-label="Editar operación" onclick="editTransactionForm('${id}')">
                             <span class="py-2 px-3 bg-green-600/90 hover:bg-green-700/90 rounded"><i class="fa-solid fa-pen" aria-hidden="true"></i></span>
