@@ -1,6 +1,6 @@
 # **AHORRADAS - APP DE CONTABAILIDAD PERSONAL - ADA ITW**
 
-Link del deploy: 
+Link del deploy: https://ahorradas-app.vercel.app/
 
 AHORRADAS permite llevar un control de los gastos y ganancias personales, a través del registro de operaciones según tipo, categoría y fecha por el usuario. Además de poder personalizar la lista de categorías y obtener reportes históricos. 
 
@@ -62,7 +62,7 @@ Font Awesome versión 6.4.0
 ![pantalla en tablet de reportes con operaciones y menú hamburguesa desplegado](./img/capturas%20de%20pantalla/tablet/reportes%20con%20menu%20hamburguesa%20desplegado%20-%20tablet.jpg)
 
 
-## *Mobile*  - *BALANCE*
+## *Mobile*  - *BALANCE* con menú de Filtros colpasado
 
 ![pantalla principal en mobile con operaciones mostradas](./img/capturas%20de%20pantalla/mobile/balance%20con%20operaciones%20-%20mobile.jpg)
 
@@ -75,19 +75,21 @@ Font Awesome versión 6.4.0
 ![pantalla en mobile de reportes con operaciones](./img/capturas%20de%20pantalla/mobile/reportes%20con%20operaciones%20-%20mobile.jpg)
 
 ## Detalle de diseño:
-# En mobile por falta de espacio en la pantalla mostrada, se tomó la decisión de colapsar el sector de filtros e incluir un botón a modo de ícono para que el usuario lo despliegue a gusto cuando lo requiera para darle mayor importancia al sector de las operaciones. Este es el default para los 3 dispositivos.
+En mobile por falta de espacio en la pantalla mostrada, se tomó la decisión de colapsar el sector de filtros e incluir un botón a modo de ícono para que el usuario lo despliegue a gusto cuando lo requiera para darle mayor importancia al sector de las operaciones. Este es el default para los 3 dispositivos.
 
 ![pantalla en mobile de reportes con operaciones](./img/capturas%20de%20pantalla/mobile/menu%20de%20filtros%20desplegado%20-%20mobile.jpg)
 
-# Como fecha default se consideró que es más práctico siempre mostrar desde el 1ro del mes en curso. Así la ventana de resumen de Balance siempre mostrará el saldo a favor y en contra, que información valiosa para el usuario. (este es un tema a resolver a futuro, ya que se tomó como ejemplo el brindado por ADA.)
+Como fecha default se consideró que es más práctico siempre mostrar desde el 1ro del mes en curso. Así la ventana de resumen de Balance siempre mostrará el saldo a favor y en contra, que información valiosa para el usuario. (este es un tema a resolver a futuro, ya que se tomó como ejemplo el brindado por ADA.)
 
 # Otros temas a resolver:
-# estilo del valor mostrado en la columna de balance en los reportes por categoría y por mes.
+Estilo del valor mostrado en la columna de balance en los reportes por categoría y por mes.
 
-# La ubicación del código de la ventana modal en el archivo de HTML fue necesario escribirlo fuera de la etiqueta <MAIN> ya que por conflictos con ciertas clases de estilos usados dejaba de responder. A futuro se incluirá el link de dicha documentación.
-
-
-## *AGRADEZCO LA DEDICACIÓN Y PACIENCIA DE NUESTRAS DOCENTES PILAR FIGUEROA, SOFIA FERRER Y LORENA PERTIERRA DURANTE TODA LA CURSADA DEL MÓDULO 3*
+La ubicación del código de la ventana modal en el archivo de HTML fue necesario escribirlo fuera de la etiqueta MAIN ya que por conflictos con ciertas clases de estilos usados dejaba de responder. A futuro se incluirá el link de dicha documentación.
 
 
-## *GRACIAS POR TU VISITA*
+### AGRADEZCO LA DEDICACIÓN Y PACIENCIA DE NUESTRAS DOCENTES:
+*PILAR FIGUEROA, SOFIA FERRER Y LORENA PETRIELLA*
+DURANTE TODA LA CURSADA DEL MÓDULO 3
+
+
+### *GRACIAS POR TU VISITA*
