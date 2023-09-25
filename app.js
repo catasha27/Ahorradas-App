@@ -52,6 +52,12 @@ const defaultCategories = [
 const allTransactions = getData("transactions") || []
 const allCategories = getData("categories") || defaultCategories
 
+const sortCategoryByName = (a, b) => {
+    if (a.categoryName.toLowerCase() < b.categoryName.toLowerCase()) return -1
+    if (a.categoryName.toLowerCase() > b.categoryName.toLowerCase()) return 1
+    return 0
+}
+
 // RENDERS
 
 const TRANSACTION_TYPE = {
@@ -93,11 +99,8 @@ const renderTransactions = (transactions) => {
 const renderCategoriesOptions = (categories) => {
     cleanContainer("#category-option")
     cleanContainer("#category-menu")
-    const categoriesSorted = categories.toSorted((a, b) => {
-        if (a.categoryName < b.categoryName) return -1
-        if (a.categoryName > b.categoryName) return 1
-        return 0
-    })
+    const categoriesSorted = categories.toSorted(sortCategoryByName)
+
     $("#category-menu").innerHTML += `
         <option value="" aria-label="Mostrar todas">Todas</option>`
     for (const { categoryName, id } of categoriesSorted) { 
@@ -112,11 +115,8 @@ const renderCategoriesOptions = (categories) => {
 
 const renderCategoriesTable = (categories) => {
     cleanContainer("#category-data")
-    const categoriesSorted = categories.toSorted((a, b) => {
-        if (a.categoryName < b.categoryName) return -1
-        if (a.categoryName > b.categoryName) return 1
-        return 0
-    })
+    const categoriesSorted = categories.toSorted(sortCategoryByName)
+    
     for (const { categoryName, id } of categoriesSorted) {
         $("#category-data").innerHTML += `
         <tr class="flex justify-between items-center flex-wrap mb-3 text-base">
